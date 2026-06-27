@@ -19,6 +19,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Input } from "@/components/ui/input";
 import { signOut } from "@/actions/auth";
 import { formatDate } from "@/utils";
 import { createClient } from "@/lib/supabase/client";
@@ -166,7 +167,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
   return (
     <div className="grid gap-6 md:grid-cols-2">
       {/* Profile & Preferences Settings Card */}
-      <Card className="rounded-[32px] border-none shadow-sm bg-card p-6 flex flex-col justify-between">
+      <Card className="rounded-2xl border-none shadow-sm bg-card p-6 flex flex-col justify-between">
         <div>
           <CardHeader className="px-0 pt-0 pb-6">
             <CardTitle className="text-base font-extrabold text-foreground">Profile Settings</CardTitle>
@@ -204,7 +205,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
                   variant="outline"
                   onClick={() => fileInputRef.current?.click()}
                   disabled={uploading}
-                  className="h-7 text-[10px] font-bold rounded-full uppercase px-3 tracking-wider bg-transparent border-primary/30 hover:bg-primary/5 text-foreground"
+                  className="h-7 text-[10px] font-bold rounded-lg uppercase px-3 tracking-wider bg-transparent border-primary/30 hover:bg-primary/5 text-foreground"
                 >
                   {uploading ? "Uploading..." : "Upload Photo"}
                 </Button>
@@ -225,11 +226,10 @@ export function SettingsClient({ user }: SettingsClientProps) {
                 <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                   <User className="h-3.5 w-3.5" /> Full Name
                 </label>
-                <input
+                <Input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full text-xs font-semibold px-3 py-2.5 rounded-xl border bg-background border-border/80 text-foreground focus:ring-1 focus:ring-primary outline-none transition-shadow"
                   placeholder="Enter your name"
                 />
               </div>
@@ -239,11 +239,10 @@ export function SettingsClient({ user }: SettingsClientProps) {
                 <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                   <Mail className="h-3.5 w-3.5" /> Email Address
                 </label>
-                <input
+                <Input
                   type="email"
                   value={user.email}
                   disabled
-                  className="w-full text-xs font-semibold px-3 py-2.5 rounded-xl border bg-muted/30 border-muted/50 text-muted-foreground cursor-not-allowed outline-none"
                 />
               </div>
 
@@ -255,7 +254,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
                 <select
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
-                  className="w-full text-xs font-semibold px-3 py-2.5 rounded-xl border bg-background border-border/80 text-foreground focus:ring-1 focus:ring-primary outline-none transition-shadow cursor-pointer"
+                  className="flex h-12 w-full rounded-xl border border-border/40 bg-slate-50 dark:bg-zinc-900/50 px-3 text-sm outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 cursor-pointer"
                 >
                   {currencies.map((c) => (
                     <option key={c.code} value={c.code}>
@@ -286,7 +285,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
           <Button
             onClick={handleSaveChanges}
             disabled={saving || uploading}
-            className="w-full rounded-full py-4 text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-1.5"
+            className="w-full h-12 rounded-xl text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-1.5"
           >
             {saving ? (
               <>
@@ -301,7 +300,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
 
       {/* Appearance Settings Card */}
       <div className="space-y-6">
-        <Card className="rounded-[32px] border-none shadow-sm bg-card p-6">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-6">
           <CardHeader className="px-0 pt-0 pb-6">
             <CardTitle className="text-base font-extrabold text-foreground">Appearance</CardTitle>
             <CardDescription className="text-xs text-muted-foreground">Customize the look and feel of the app</CardDescription>
@@ -316,7 +315,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
                     <button
                       key={value}
                       onClick={() => setTheme(value)}
-                      className={`flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-2xl border transition-all cursor-pointer ${
+                      className={`flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl border transition-all cursor-pointer ${
                         isActive
                           ? "bg-primary text-primary-foreground border-primary shadow-sm"
                           : "bg-muted/30 hover:bg-muted/50 border-transparent text-muted-foreground hover:text-foreground"
@@ -333,7 +332,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
         </Card>
 
         {/* Danger Zone / Session Settings */}
-        <Card className="rounded-[32px] border-none shadow-sm bg-card p-6">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-6">
           <CardHeader className="px-0 pt-0 pb-6">
             <CardTitle className="text-base font-extrabold text-destructive flex items-center gap-2">
               <ShieldAlert className="h-5 w-5 text-destructive" />
@@ -355,7 +354,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
             <Button
               variant="destructive"
               onClick={() => signOut()}
-              className="w-full rounded-full py-4 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-sm"
+              className="w-full h-12 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-sm"
             >
               <LogOut className="h-4 w-4" />
               Sign Out
