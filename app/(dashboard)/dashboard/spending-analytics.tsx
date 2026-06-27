@@ -71,13 +71,13 @@ export function SpendingAnalyticsCard({ monthlyData }: SpendingAnalyticsProps) {
   const isDown = delta <= 0;
 
   return (
-    <Card className="rounded-[32px] border-none shadow-sm bg-card p-5 flex flex-col h-full w-full justify-between">
+    <Card className="rounded-2xl border-none shadow-sm bg-card p-5 flex flex-col h-full w-full justify-between">
       <div className="flex flex-col flex-1">
         {/* Header */}
         <div className="flex justify-between items-center shrink-0">
           <h3 className="text-sm font-semibold text-foreground">Spending</h3>
           {hasSufficientExpenses && (
-            <button className="flex items-center gap-1 px-2.5 py-1 rounded-full border text-[10px] font-semibold hover:bg-muted/40 transition-colors text-muted-foreground">
+            <button className="flex items-center gap-1 px-2.5 py-1 rounded-lg border text-[10px] font-semibold hover:bg-muted/40 transition-colors text-muted-foreground">
               Monthly <ChevronDown className="h-3 w-3" />
             </button>
           )}
@@ -166,7 +166,7 @@ export function SpendingAnalyticsCard({ monthlyData }: SpendingAnalyticsProps) {
             </p>
             <Link
               href="/transactions"
-              className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-primary-foreground hover:bg-primary/95 transition-all shadow-sm"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-primary-foreground hover:bg-primary/95 transition-all shadow-sm"
             >
               <Plus className="h-3 w-3" /> Record Expense
             </Link>
