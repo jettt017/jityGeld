@@ -104,14 +104,14 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
           <h3 className="text-base font-bold text-foreground">
             {type === "INCOME" ? "💰 Income" : "💸 Expense"} Categories
           </h3>
-          <Badge variant={type === "INCOME" ? "default" : "secondary"} className="rounded-full px-2.5">
+          <Badge variant={type === "INCOME" ? "default" : "secondary"} className="rounded-md px-2.5 py-0.5 text-xs font-semibold">
             {cats.length}
           </Badge>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           {cats.map((category) => (
-            <Card key={category.id} className="rounded-[28px] border-none shadow-sm bg-card p-5 relative group hover:shadow-md transition-shadow">
+            <Card key={category.id} className="rounded-2xl border-none shadow-sm bg-card p-5 relative group hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className={cn(
@@ -133,7 +133,7 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 rounded-full"
+                    className="h-8 w-8 rounded-lg"
                     onClick={() => openEditDialog(category)}
                   >
                     <Pencil className="h-3.5 w-3.5" />
@@ -141,7 +141,7 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 text-destructive hover:text-destructive rounded-full"
+                    className="h-8 w-8 text-destructive hover:text-destructive rounded-lg"
                     onClick={() => openDeleteDialog(category)}
                   >
                     <Trash2 className="h-3.5 w-3.5" />
@@ -154,7 +154,7 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
           {/* Quick Create Card */}
           <button
             onClick={openCreateDialog}
-            className="border-2 border-dashed border-muted hover:border-foreground/30 hover:bg-muted/15 transition-all rounded-[28px] p-5 flex items-center justify-center gap-2 text-xs font-semibold text-muted-foreground bg-muted/5 h-20 cursor-pointer"
+            className="border-2 border-dashed border-muted hover:border-foreground/30 hover:bg-muted/15 transition-all rounded-2xl p-5 flex items-center justify-center gap-2 text-xs font-semibold text-muted-foreground bg-muted/5 h-20 cursor-pointer"
           >
             <Plus className="h-4 w-4" />
             Add {type === "INCOME" ? "Income" : "Expense"} Category
@@ -173,7 +173,7 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
       {/* Summary Cards */}
       <div className="grid gap-6 sm:grid-cols-3">
         {/* Total Categories */}
-        <Card className="rounded-[28px] border-none shadow-sm bg-card p-5">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-5">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
               <ArrowLeftRight className="h-5 w-5" />
@@ -188,7 +188,7 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
         </Card>
 
         {/* Income Categories */}
-        <Card className="rounded-[28px] border-none shadow-sm bg-card p-5">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-5">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500">
               <TrendingUp className="h-5 w-5" />
@@ -203,7 +203,7 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
         </Card>
 
         {/* Expense Categories */}
-        <Card className="rounded-[28px] border-none shadow-sm bg-card p-5">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-5">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-rose-500/10 text-rose-500">
               <TrendingDown className="h-5 w-5" />
@@ -263,14 +263,14 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
                 id="cat-type"
                 name="type"
                 defaultValue={editingCategory?.type || "EXPENSE"}
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="flex h-12 w-full rounded-xl border border-border/40 bg-slate-50 dark:bg-zinc-900/50 px-3 text-sm outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 cursor-pointer"
               >
                 <option value="INCOME">Income</option>
                 <option value="EXPENSE">Expense</option>
               </select>
             </div>
-            <DialogFooter>
-              <Button type="submit" disabled={loading}>
+            <DialogFooter className="pt-2">
+              <Button type="submit" disabled={loading} className="w-full h-12 rounded-xl text-xs font-bold uppercase tracking-wider mt-2">
                 {editingCategory ? "Update" : "Create"}
               </Button>
             </DialogFooter>
@@ -293,10 +293,11 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
               {error}
             </div>
           )}
-          <DialogFooter>
+          <DialogFooter className="gap-2 sm:gap-0">
             <Button
               variant="outline"
               onClick={() => setDeleteDialogOpen(false)}
+              className="rounded-xl px-5"
             >
               Cancel
             </Button>
@@ -304,6 +305,7 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
               variant="destructive"
               onClick={handleDelete}
               disabled={loading}
+              className="rounded-xl px-5"
             >
               Delete
             </Button>
