@@ -134,7 +134,7 @@ export function AnalyticsClient({
         {statCards.map((card) => {
           const Icon = card.icon;
           return (
-            <Card key={card.title} className="rounded-[32px] border-none shadow-sm bg-card p-5">
+            <Card key={card.title} className="rounded-2xl border-none shadow-sm bg-card p-5">
               <div className="flex items-center gap-3">
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${card.bg} ${card.color}`}>
                   <Icon className="h-5 w-5" />
@@ -156,7 +156,7 @@ export function AnalyticsClient({
       {/* Charts Row 1 */}
       <div className="grid gap-6 md:grid-cols-2">
         {/* Income Trend */}
-        <Card className="rounded-[32px] border-none shadow-sm bg-card p-6">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-6">
           <CardHeader className="px-0 pt-0 pb-4">
             <CardTitle className="text-base font-extrabold text-foreground">Monthly Income Trend</CardTitle>
             <CardDescription className="text-xs text-muted-foreground">Income over the last 12 months</CardDescription>
@@ -202,7 +202,7 @@ export function AnalyticsClient({
                     </AreaChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div className="w-full h-full bg-muted/10 animate-pulse rounded-[24px]" />
+                  <div className="w-full h-full bg-muted/10 animate-pulse rounded-2xl" />
                 )}
               </div>
             )}
@@ -210,7 +210,7 @@ export function AnalyticsClient({
         </Card>
 
         {/* Expense Trend */}
-        <Card className="rounded-[32px] border-none shadow-sm bg-card p-6">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-6">
           <CardHeader className="px-0 pt-0 pb-4">
             <CardTitle className="text-base font-extrabold text-foreground">Monthly Expense Trend</CardTitle>
             <CardDescription className="text-xs text-muted-foreground">Expenses over the last 12 months</CardDescription>
@@ -256,7 +256,7 @@ export function AnalyticsClient({
                     </AreaChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div className="w-full h-full bg-muted/10 animate-pulse rounded-[24px]" />
+                  <div className="w-full h-full bg-muted/10 animate-pulse rounded-2xl" />
                 )}
               </div>
             )}
@@ -267,7 +267,7 @@ export function AnalyticsClient({
       {/* Charts Row 2 */}
       <div className="grid gap-6 md:grid-cols-2">
         {/* Expense Distribution */}
-        <Card className="rounded-[32px] border-none shadow-sm bg-card p-6">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-6">
           <CardHeader className="px-0 pt-0 pb-4">
             <CardTitle className="text-base font-extrabold text-foreground">Expense Distribution</CardTitle>
             <CardDescription className="text-xs text-muted-foreground">Spending breakdown by category</CardDescription>
@@ -312,7 +312,7 @@ export function AnalyticsClient({
                     </PieChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div className="w-full h-full bg-muted/10 animate-pulse rounded-[24px]" />
+                  <div className="w-full h-full bg-muted/10 animate-pulse rounded-2xl" />
                 )}
               </div>
             )}
@@ -320,7 +320,7 @@ export function AnalyticsClient({
         </Card>
 
         {/* Savings Progress */}
-        <Card className="rounded-[32px] border-none shadow-sm bg-card p-6">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-6">
           <CardHeader className="px-0 pt-0 pb-4">
             <CardTitle className="text-base font-extrabold text-foreground">Savings Progress</CardTitle>
             <CardDescription className="text-xs text-muted-foreground">Current vs Target amounts</CardDescription>
@@ -355,7 +355,7 @@ export function AnalyticsClient({
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div className="w-full h-full bg-muted/10 animate-pulse rounded-[24px]" />
+                  <div className="w-full h-full bg-muted/10 animate-pulse rounded-2xl" />
                 )}
               </div>
             )}
