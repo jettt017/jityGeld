@@ -28,7 +28,7 @@ const insights = [
 export function JityGeldInsightsCard() {
   return (
     <Card
-      className="rounded-[24px] border-none shadow-sm bg-[#dcf3eb] p-5 relative overflow-hidden"
+      className="rounded-2xl border-none shadow-sm bg-[#dcf3eb] p-5 relative overflow-hidden"
       style={{ minHeight: 180 }}
     >
       {/* Decorative background blobs */}
@@ -54,7 +54,7 @@ export function JityGeldInsightsCard() {
           </div>
           <Link
             href="/analytics"
-            className="flex shrink-0 items-center gap-1 rounded-full bg-emerald-800 px-3 py-1 text-[10px] font-bold text-white hover:bg-emerald-900 transition-colors"
+            className="flex shrink-0 items-center gap-1 rounded-lg bg-emerald-800 px-3 py-1 text-[10px] font-bold text-white hover:bg-emerald-900 transition-colors"
           >
             Explore <ArrowRight className="h-2.5 w-2.5" />
           </Link>
@@ -65,7 +65,7 @@ export function JityGeldInsightsCard() {
           {insights.map(({ icon: Icon, iconBg, label, body }) => (
             <div
               key={label}
-              className="flex flex-col gap-2 rounded-[20px] bg-white/55 border border-emerald-900/[0.06] p-3.5 backdrop-blur-sm"
+              className="flex flex-col gap-2 rounded-xl bg-white/55 border border-emerald-900/[0.06] p-3.5 backdrop-blur-sm"
             >
               <div className="flex items-center gap-2">
                 <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-xl ${iconBg}`}>
