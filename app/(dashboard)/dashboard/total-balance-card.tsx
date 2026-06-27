@@ -22,7 +22,7 @@ export function TotalBalanceCard({ stats }: TotalBalanceCardProps) {
       : 0;
 
   return (
-    <Card className="rounded-[32px] border-none shadow-sm bg-card p-5 flex flex-col gap-3 h-full w-full">
+    <Card className="rounded-2xl border-none shadow-sm bg-card p-5 flex flex-col gap-3 h-full w-full">
       {/* Label + Balance */}
       <div>
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -35,13 +35,13 @@ export function TotalBalanceCard({ stats }: TotalBalanceCardProps) {
 
       {/* Quick Action Buttons */}
       <div className="flex gap-2">
-        <button className="flex-1 flex items-center justify-center gap-1.5 rounded-full border bg-muted/30 hover:bg-muted/60 text-foreground py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-colors">
+        <button className="flex-1 flex items-center justify-center gap-1.5 rounded-lg border bg-muted/30 hover:bg-muted/60 text-foreground py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-colors">
           <div className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-500">
             <ArrowUpRight className="h-2.5 w-2.5" />
           </div>
           Send
         </button>
-        <button className="flex-1 flex items-center justify-center gap-1.5 rounded-full border bg-muted/30 hover:bg-muted/60 text-foreground py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-colors">
+        <button className="flex-1 flex items-center justify-center gap-1.5 rounded-lg border bg-muted/30 hover:bg-muted/60 text-foreground py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-colors">
           <div className="flex h-4 w-4 items-center justify-center rounded-full bg-rose-500/15 text-rose-500">
             <ArrowDownLeft className="h-2.5 w-2.5" />
           </div>
