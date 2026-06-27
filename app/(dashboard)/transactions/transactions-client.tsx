@@ -189,7 +189,7 @@ export function TransactionsClient({
       {/* Summary Cards */}
       <div className="grid gap-6 sm:grid-cols-3">
         {/* Total Volume */}
-        <Card className="rounded-[28px] border-none shadow-sm bg-card p-5">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-5">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
               <ArrowLeftRight className="h-5 w-5" />
@@ -204,7 +204,7 @@ export function TransactionsClient({
         </Card>
 
         {/* Total Income */}
-        <Card className="rounded-[28px] border-none shadow-sm bg-card p-5">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-5">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500">
               <TrendingUp className="h-5 w-5" />
@@ -219,7 +219,7 @@ export function TransactionsClient({
         </Card>
 
         {/* Total Expense */}
-        <Card className="rounded-[28px] border-none shadow-sm bg-card p-5">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-5">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-rose-500/10 text-rose-500">
               <TrendingDown className="h-5 w-5" />
@@ -235,14 +235,14 @@ export function TransactionsClient({
       </div>
 
       {/* Toolbar */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between bg-card p-4 rounded-[24px] shadow-sm">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between bg-card p-4 rounded-2xl shadow-sm">
         <div className="flex flex-1 items-center gap-2">
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search transactions..."
               defaultValue={filters.search || ""}
-              className="pl-9 rounded-full bg-muted/40 border-none placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
+              className="pl-9 rounded-xl bg-slate-50 dark:bg-zinc-900/50 border border-border/40 focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground transition-all"
               onChange={(e) => {
                 const value = e.target.value;
                 if (value.length === 0 || value.length >= 2) {
@@ -254,7 +254,7 @@ export function TransactionsClient({
           <Button
             variant={showFilters ? "secondary" : "outline"}
             size="icon"
-            className="rounded-full"
+            className="rounded-xl"
             onClick={() => setShowFilters(!showFilters)}
           >
             <Filter className="h-4 w-4" />
@@ -263,7 +263,7 @@ export function TransactionsClient({
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger
             render={
-              <Button onClick={openCreateDialog} className="rounded-full px-5 py-4">
+              <Button onClick={openCreateDialog} className="rounded-xl px-5 h-12">
                 <Plus className="mr-1.5 h-4 w-4" />
                 Add Transaction
               </Button>
@@ -282,29 +282,29 @@ export function TransactionsClient({
             </DialogHeader>
             <form action={handleSubmit} className="space-y-4">
               {error && (
-                <div className="rounded-lg bg-destructive/10 p-3 text-sm text-destructive">
+                <div className="rounded-xl bg-destructive/10 p-3 text-xs text-destructive font-medium">
                   {error}
                 </div>
               )}
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Type</label>
+                <div className="space-y-1.5 flex flex-col">
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Type</label>
                   <select
                     name="type"
                     value={selectedType}
                     onChange={(e) => setSelectedType(e.target.value)}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="flex h-12 w-full rounded-xl border border-border/40 bg-slate-50 dark:bg-zinc-900/50 px-3 text-sm outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 cursor-pointer"
                   >
                     <option value="INCOME">Income</option>
                     <option value="EXPENSE">Expense</option>
                   </select>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Category</label>
+                <div className="space-y-1.5 flex flex-col">
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Category</label>
                   <select
                     name="categoryId"
                     defaultValue={editingTx?.categoryId || ""}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="flex h-12 w-full rounded-xl border border-border/40 bg-slate-50 dark:bg-zinc-900/50 px-3 text-sm outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 cursor-pointer"
                     required
                   >
                     <option value="">Select...</option>
@@ -317,8 +317,8 @@ export function TransactionsClient({
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Amount</label>
+                <div className="space-y-1.5 flex flex-col">
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Amount</label>
                   <Input
                     name="amount"
                     type="number"
@@ -329,8 +329,8 @@ export function TransactionsClient({
                     required
                   />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Date</label>
+                <div className="space-y-1.5 flex flex-col">
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Date</label>
                   <Input
                     name="transactionDate"
                     type="date"
@@ -342,10 +342,9 @@ export function TransactionsClient({
                   />
                 </div>
               </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  Description{" "}
-                  <span className="text-muted-foreground">(optional)</span>
+              <div className="space-y-1.5 flex flex-col">
+                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                  Description <span className="text-muted-foreground text-[10px] tracking-normal lowercase">(optional)</span>
                 </label>
                 <Input
                   name="description"
@@ -353,8 +352,8 @@ export function TransactionsClient({
                   defaultValue={editingTx?.description || ""}
                 />
               </div>
-              <DialogFooter>
-                <Button type="submit" disabled={loading}>
+              <DialogFooter className="pt-2">
+                <Button type="submit" className="w-full h-12 rounded-xl text-xs font-bold uppercase tracking-wider mt-2" disabled={loading}>
                   {editingTx ? "Update" : "Create"}
                 </Button>
               </DialogFooter>
@@ -365,15 +364,15 @@ export function TransactionsClient({
 
       {/* Filters */}
       {showFilters && (
-        <Card className="rounded-[32px] border-none shadow-sm bg-card p-6">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-6">
           <CardContent className="p-0">
             <div className="flex flex-wrap items-end gap-3">
-              <div className="space-y-1">
-                <label className="text-xs font-medium text-muted-foreground">
+              <div className="space-y-1 flex flex-col">
+                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                   Type
                 </label>
                 <select
-                  className="flex h-9 rounded-md border border-input bg-background px-3 text-sm"
+                  className="flex h-9 rounded-lg border border-border/40 bg-slate-50 dark:bg-zinc-900/50 px-3 text-xs font-semibold focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer"
                   value={filters.type || ""}
                   onChange={(e) =>
                     updateSearchParams({ type: e.target.value || undefined })
@@ -384,12 +383,12 @@ export function TransactionsClient({
                   <option value="EXPENSE">Expense</option>
                 </select>
               </div>
-              <div className="space-y-1">
-                <label className="text-xs font-medium text-muted-foreground">
+              <div className="space-y-1 flex flex-col">
+                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                   Category
                 </label>
                 <select
-                  className="flex h-9 rounded-md border border-input bg-background px-3 text-sm"
+                  className="flex h-9 rounded-lg border border-border/40 bg-slate-50 dark:bg-zinc-900/50 px-3 text-xs font-semibold focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer"
                   value={filters.categoryId || ""}
                   onChange={(e) =>
                     updateSearchParams({
@@ -405,13 +404,13 @@ export function TransactionsClient({
                   ))}
                 </select>
               </div>
-              <div className="space-y-1">
-                <label className="text-xs font-medium text-muted-foreground">
+              <div className="space-y-1 flex flex-col">
+                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                   From
                 </label>
                 <Input
                   type="date"
-                  className="h-9 w-auto"
+                  className="h-9 w-auto text-xs font-semibold rounded-lg border-border/40 bg-slate-50 dark:bg-zinc-900/50 px-2"
                   value={filters.startDate || ""}
                   onChange={(e) =>
                     updateSearchParams({
@@ -420,13 +419,13 @@ export function TransactionsClient({
                   }
                 />
               </div>
-              <div className="space-y-1">
-                <label className="text-xs font-medium text-muted-foreground">
+              <div className="space-y-1 flex flex-col">
+                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                   To
                 </label>
                 <Input
                   type="date"
-                  className="h-9 w-auto"
+                  className="h-9 w-auto text-xs font-semibold rounded-lg border-border/40 bg-slate-50 dark:bg-zinc-900/50 px-2"
                   value={filters.endDate || ""}
                   onChange={(e) =>
                     updateSearchParams({
@@ -452,7 +451,7 @@ export function TransactionsClient({
       )}
 
       {/* Table */}
-      <Card className="rounded-[32px] border-none shadow-sm bg-card p-6 overflow-hidden">
+      <Card className="rounded-2xl border-none shadow-sm bg-card p-6 overflow-hidden">
         <CardContent className="p-0">
           <Table>
             <TableHeader>
@@ -478,14 +477,14 @@ export function TransactionsClient({
               ) : (
                 transactions.map((tx) => (
                   <TableRow key={tx.id}>
-                    <TableCell className="text-sm">
+                    <TableCell className="text-xs">
                       {formatDate(tx.transactionDate)}
                     </TableCell>
-                    <TableCell className="font-medium">
+                    <TableCell className="font-semibold text-xs">
                       {tx.description || "—"}
                     </TableCell>
                     <TableCell>
-                      <Badge variant="secondary" className="text-xs">
+                      <Badge variant="secondary" className="text-[10px] rounded-md font-bold px-2 py-0.5">
                         {tx.categoryName}
                       </Badge>
                     </TableCell>
@@ -494,13 +493,13 @@ export function TransactionsClient({
                         variant={
                           tx.type === "INCOME" ? "default" : "destructive"
                         }
-                        className="text-xs"
+                        className="text-[10px] rounded-md font-bold px-2 py-0.5"
                       >
                         {tx.type}
                       </Badge>
                     </TableCell>
                     <TableCell
-                      className={`text-right font-semibold ${
+                      className={`text-right font-bold text-xs ${
                         tx.type === "INCOME"
                           ? "text-emerald-500"
                           : "text-rose-500"
@@ -514,7 +513,7 @@ export function TransactionsClient({
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8"
+                          className="h-8 w-8 rounded-lg"
                           onClick={() => openEditDialog(tx)}
                         >
                           <Pencil className="h-3.5 w-3.5" />
@@ -522,7 +521,7 @@ export function TransactionsClient({
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8 text-destructive hover:text-destructive"
+                          className="h-8 w-8 text-destructive hover:text-destructive rounded-lg"
                           onClick={() => {
                             setDeletingTx(tx);
                             setDeleteDialogOpen(true);
@@ -581,10 +580,11 @@ export function TransactionsClient({
               cannot be undone.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
+          <DialogFooter className="gap-2 sm:gap-0">
             <Button
               variant="outline"
               onClick={() => setDeleteDialogOpen(false)}
+              className="rounded-xl px-5"
             >
               Cancel
             </Button>
@@ -592,6 +592,7 @@ export function TransactionsClient({
               variant="destructive"
               onClick={handleDelete}
               disabled={loading}
+              className="rounded-xl px-5"
             >
               Delete
             </Button>
