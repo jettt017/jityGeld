@@ -57,7 +57,7 @@ export function RecentTransactionsList({
   const hasTransactions = transactions.length > 0;
 
   return (
-    <Card className="rounded-[32px] border-none shadow-sm bg-card p-5 flex flex-col gap-3 h-full w-full">
+    <Card className="rounded-2xl border-none shadow-sm bg-card p-5 flex flex-col gap-3 h-full w-full">
       {/* Header */}
       <div className="flex justify-between items-center shrink-0">
         <h3 className="text-sm font-semibold text-foreground">Transactions</h3>
@@ -81,7 +81,7 @@ export function RecentTransactionsList({
             >
               <div className="flex items-center gap-2.5 min-w-0">
                 <div
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-[14px] ${
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
                     tx.type === "INCOME"
                       ? "bg-emerald-500/12 text-emerald-600"
                       : "bg-muted/60 text-foreground/55"
@@ -122,7 +122,7 @@ export function RecentTransactionsList({
           </p>
           <Link
             href="/transactions"
-            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-primary-foreground hover:bg-primary/95 transition-all shadow-sm"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-primary-foreground hover:bg-primary/95 transition-all shadow-sm"
           >
             <Plus className="h-3 w-3" /> Add Transaction
           </Link>
