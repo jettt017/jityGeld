@@ -39,7 +39,7 @@ export default async function DashboardLayout({
         <div className="flex items-center gap-3">
           <Link
             href="/transactions?add=true"
-            className="inline-flex items-center justify-center gap-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm font-bold uppercase tracking-wider text-[11px] h-9 px-3 sm:px-4 cursor-pointer"
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm font-bold uppercase tracking-wider text-[11px] h-9 px-3 sm:px-4 cursor-pointer"
           >
             <Plus className="h-4 w-4" />
             <span className="hidden sm:inline">Add Transaction</span>
