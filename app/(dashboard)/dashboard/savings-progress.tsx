@@ -31,7 +31,7 @@ export function SavingsProgressCard({ stats }: SavingsProgressCardProps) {
   const strokeDashoffset = arcLength - (percentage / 100) * arcLength;
 
   return (
-    <Card className="rounded-[32px] border-none shadow-sm bg-card p-6 flex flex-col justify-between h-full min-h-[320px]">
+    <Card className="rounded-2xl border-none shadow-sm bg-card p-6 flex flex-col justify-between h-full min-h-[320px]">
       <div className="flex justify-between items-center shrink-0">
         <h3 className="text-sm font-semibold text-foreground">Savings Goals Progress</h3>
         {hasSavingsData && (
@@ -101,7 +101,7 @@ export function SavingsProgressCard({ stats }: SavingsProgressCardProps) {
           <div className="mt-4">
             <Button
               variant="outline"
-              className="w-full rounded-full border bg-muted/15 text-primary hover:bg-primary hover:text-primary-foreground py-5 text-xs font-semibold uppercase tracking-wider transition-colors"
+              className="w-full rounded-xl border bg-muted/15 text-primary hover:bg-primary hover:text-primary-foreground py-5 text-xs font-semibold uppercase tracking-wider transition-colors"
               nativeButton={false}
               render={
                 <Link href="/savings">
@@ -124,7 +124,7 @@ export function SavingsProgressCard({ stats }: SavingsProgressCardProps) {
           </p>
           <Link
             href="/savings"
-            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-primary-foreground hover:bg-primary/95 transition-all shadow-sm"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-primary-foreground hover:bg-primary/95 transition-all shadow-sm"
           >
             <Plus className="h-3 w-3" /> Create Goal
           </Link>
