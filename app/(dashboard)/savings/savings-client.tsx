@@ -139,7 +139,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
       {/* Summary Cards */}
       <div className="grid gap-6 sm:grid-cols-3">
         {/* Total Target */}
-        <Card className="rounded-[32px] border-none shadow-sm bg-card p-5">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-5">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
               <Target className="h-5 w-5" />
@@ -154,7 +154,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
         </Card>
 
         {/* Total Saved */}
-        <Card className="rounded-[32px] border-none shadow-sm bg-card p-5">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-5">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500">
               <Wallet className="h-5 w-5" />
@@ -169,7 +169,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
         </Card>
 
         {/* Overall Progress */}
-        <Card className="rounded-[32px] border-none shadow-sm bg-card p-5">
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-5">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-500/10 text-indigo-500">
               <PiggyBank className="h-5 w-5" />
@@ -190,13 +190,13 @@ export function SavingsClient({ goals }: SavingsClientProps) {
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger
             render={
-              <Button onClick={openCreateDialog} className="rounded-full px-5 py-4">
+              <Button onClick={openCreateDialog} className="rounded-xl px-5 h-12">
                 <Plus className="mr-1.5 h-4 w-4" />
                 Add Goal
               </Button>
             }
           />
-          <DialogContent className="sm:rounded-[28px]">
+          <DialogContent>
             <DialogHeader>
               <DialogTitle>
                 {editingGoal ? "Edit Goal" : "New Savings Goal"}
@@ -250,7 +250,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
                 </div>
               </div>
               <DialogFooter className="pt-2">
-                <Button type="submit" disabled={loading} className="rounded-full px-6">
+                <Button type="submit" disabled={loading} className="w-full h-12 rounded-xl text-xs font-bold uppercase tracking-wider mt-2">
                   {editingGoal ? "Update" : "Create"}
                 </Button>
               </DialogFooter>
@@ -271,13 +271,13 @@ export function SavingsClient({ goals }: SavingsClientProps) {
           return (
             <Card
               key={goal.id}
-              className={`rounded-[32px] border-none shadow-sm bg-card p-6 flex flex-col justify-between relative overflow-hidden transition-all hover:shadow-md ${
+              className={`rounded-2xl border-none shadow-sm bg-card p-6 flex flex-col justify-between relative overflow-hidden transition-all hover:shadow-md ${
                 isCompleted ? "ring-2 ring-emerald-500/30" : ""
               }`}
             >
               {isCompleted && (
                 <div className="absolute right-4 top-4">
-                  <Badge className="bg-emerald-500/10 text-emerald-600 border-none hover:bg-emerald-500/10 rounded-full font-bold px-2.5 py-0.5 text-[10px]">
+                  <Badge className="bg-emerald-500/10 text-emerald-600 border-none hover:bg-emerald-500/10 rounded-md font-bold px-2.5 py-0.5 text-[10px]">
                     ✓ Completed
                   </Badge>
                 </div>
@@ -349,7 +349,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
                 {!isCompleted ? (
                   <Button
                     size="sm"
-                    className="flex-1 rounded-full h-9 font-medium text-xs"
+                    className="flex-1 rounded-lg h-9 font-medium text-xs"
                     onClick={() => {
                       setFundingGoal(goal);
                       setError(null);
@@ -360,7 +360,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
                     Add Funds
                   </Button>
                 ) : (
-                  <div className="flex-1 text-center py-1.5 text-xs text-muted-foreground font-medium bg-muted/30 rounded-full h-9 flex items-center justify-center">
+                  <div className="flex-1 text-center py-1.5 text-xs text-muted-foreground font-medium bg-muted/30 rounded-lg h-9 flex items-center justify-center">
                     Goal achieved!
                   </div>
                 )}
@@ -368,7 +368,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="h-9 w-9 rounded-full shrink-0"
+                  className="h-9 w-9 rounded-lg shrink-0"
                   onClick={() => openEditDialog(goal)}
                 >
                   <Pencil className="h-3.5 w-3.5" />
@@ -377,7 +377,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="h-9 w-9 rounded-full text-destructive hover:text-destructive hover:bg-destructive/5 shrink-0"
+                  className="h-9 w-9 rounded-lg text-destructive hover:text-destructive hover:bg-destructive/5 shrink-0"
                   onClick={() => openDeleteDialog(goal)}
                 >
                   <Trash2 className="h-3.5 w-3.5" />
@@ -390,7 +390,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
         {/* Quick Create Card */}
         <button
           onClick={openCreateDialog}
-          className="border-2 border-dashed border-muted hover:border-foreground/30 hover:bg-muted/15 transition-all rounded-[32px] p-6 flex flex-col items-center justify-center gap-3 text-sm font-semibold text-muted-foreground bg-muted/5 min-h-[240px] cursor-pointer"
+          className="border-2 border-dashed border-muted hover:border-foreground/30 hover:bg-muted/15 transition-all rounded-2xl p-6 flex flex-col items-center justify-center gap-3 text-sm font-semibold text-muted-foreground bg-muted/5 min-h-[240px] cursor-pointer"
         >
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted/30 text-muted-foreground">
             <Plus className="h-6 w-6" />
@@ -401,7 +401,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
 
       {/* Add Funds Dialog */}
       <Dialog open={fundsDialogOpen} onOpenChange={setFundsDialogOpen}>
-        <DialogContent className="sm:rounded-[28px]">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Add Funds</DialogTitle>
             <DialogDescription>
@@ -439,7 +439,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
               />
             </div>
             <DialogFooter className="pt-2">
-              <Button type="submit" disabled={loading} className="rounded-full px-6">
+              <Button type="submit" disabled={loading} className="w-full h-12 rounded-xl text-xs font-bold uppercase tracking-wider mt-2">
                 Add Funds
               </Button>
             </DialogFooter>
@@ -449,7 +449,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
 
       {/* Delete Confirmation */}
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <DialogContent className="sm:rounded-[28px]">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Delete Savings Goal</DialogTitle>
             <DialogDescription>
@@ -461,7 +461,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
             <Button
               variant="outline"
               onClick={() => setDeleteDialogOpen(false)}
-              className="rounded-full px-6"
+              className="rounded-xl px-5"
             >
               Cancel
             </Button>
@@ -469,7 +469,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
               variant="destructive"
               onClick={handleDelete}
               disabled={loading}
-              className="rounded-full px-6"
+              className="rounded-xl px-5"
             >
               Delete
             </Button>
