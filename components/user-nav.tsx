@@ -43,18 +43,26 @@ export function UserNav({ email, name, avatarUrl }: UserNavProps) {
           </Button>
         }
       />
-      <DropdownMenuContent className="w-52 rounded-xl p-1 shadow-md border border-border/50 bg-popover" align="end">
-        {/* Profile Header (Vercel/GitHub/Linear style) */}
-        <div className="px-2 py-1.5 min-w-0">
-          <p className="text-xs font-semibold text-foreground truncate leading-none">{name}</p>
-          <p className="text-[10px] text-muted-foreground truncate leading-none mt-1">{email}</p>
+      <DropdownMenuContent className="w-72 rounded-xl p-1 shadow-lg border border-border/40 bg-popover" align="end">
+        {/* Profile Header (Vercel/Linear style with Avatar + Name + Email) */}
+        <div className="flex items-center gap-2.5 px-2.5 py-2 min-w-0 border-b border-border/40 pb-2.5 mb-1.5">
+          <Avatar className="h-8 w-8 shrink-0 border border-primary/10">
+            {avatarUrl ? (
+              <AvatarImage src={avatarUrl} alt={name} className="object-cover" />
+            ) : null}
+            <AvatarFallback className="bg-primary/10 text-primary text-[10px] font-bold">
+              {initials}
+            </AvatarFallback>
+          </Avatar>
+          <div className="min-w-0 flex-1">
+            <p className="text-xs font-bold text-foreground truncate leading-none">{name}</p>
+            <p className="text-[10px] text-muted-foreground truncate leading-none mt-1">{email}</p>
+          </div>
         </div>
-
-        <DropdownMenuSeparator className="my-1" />
 
         {/* Navigation Items */}
         <DropdownMenuItem
-          className="rounded-md px-2 py-1.5 cursor-pointer text-xs font-medium"
+          className="rounded-lg px-2 py-1.5 cursor-pointer text-xs font-semibold"
           render={
             <Link href="/settings" className="flex items-center w-full">
               <User className="mr-2 h-3.5 w-3.5 text-muted-foreground group-hover/dropdown-menu-item:text-foreground" />
@@ -64,7 +72,7 @@ export function UserNav({ email, name, avatarUrl }: UserNavProps) {
         />
         
         <DropdownMenuItem
-          className="rounded-md px-2 py-1.5 cursor-pointer text-xs font-medium"
+          className="rounded-lg px-2 py-1.5 cursor-pointer text-xs font-semibold"
           render={
             <Link href="/settings" className="flex items-center w-full">
               <Settings className="mr-2 h-3.5 w-3.5 text-muted-foreground group-hover/dropdown-menu-item:text-foreground" />
@@ -73,11 +81,11 @@ export function UserNav({ email, name, avatarUrl }: UserNavProps) {
           }
         />
 
-        <DropdownMenuSeparator className="my-1" />
+        <DropdownMenuSeparator className="my-1.5" />
 
         {/* Logout Action */}
         <DropdownMenuItem
-          className="rounded-md px-2 py-1.5 text-destructive focus:text-destructive cursor-pointer text-xs font-medium"
+          className="rounded-lg px-2 py-1.5 text-destructive focus:text-destructive cursor-pointer text-xs font-semibold"
           onClick={() => signOut()}
         >
           <LogOut className="mr-2 h-3.5 w-3.5 text-destructive" />
