@@ -38,20 +38,20 @@ export default function LoginPage() {
         <p className="text-sm text-muted-foreground">Track Money. Build Better Habits.</p>
       </div>
 
-      <Card className="border-border/50 shadow-xl">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
-          <CardDescription>Enter your credentials to sign in</CardDescription>
+      <Card className="border-none shadow-xl bg-card rounded-2xl p-2 sm:p-4">
+        <CardHeader className="space-y-1.5 pb-4">
+          <CardTitle className="text-xl font-bold tracking-tight">Welcome back</CardTitle>
+          <CardDescription className="text-xs text-muted-foreground">Enter your credentials to sign in</CardDescription>
         </CardHeader>
         <CardContent>
           <form action={handleSubmit} className="space-y-4">
             {error && (
-              <div className="rounded-lg bg-destructive/10 p-3 text-sm text-destructive">
+              <div className="rounded-xl bg-destructive/10 p-3 text-xs text-destructive font-medium">
                 {error}
               </div>
             )}
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium">
+            <div className="space-y-1.5">
+              <label htmlFor="email" className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                 Email
               </label>
               <Input
@@ -61,11 +61,11 @@ export default function LoginPage() {
                 placeholder="you@example.com"
                 required
                 autoComplete="email"
-                className="h-10"
+                className="bg-[#F8FAFC] dark:bg-zinc-900/50"
               />
             </div>
-            <div className="space-y-2">
-              <label htmlFor="password" className="text-sm font-medium">
+            <div className="space-y-1.5">
+              <label htmlFor="password" className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                 Password
               </label>
               <Input
@@ -75,19 +75,19 @@ export default function LoginPage() {
                 placeholder="••••••••"
                 required
                 autoComplete="current-password"
-                className="h-10"
+                className="bg-[#F8FAFC] dark:bg-zinc-900/50"
               />
             </div>
-            <Button type="submit" className="w-full h-10" disabled={loading}>
+            <Button type="submit" className="w-full h-12 rounded-xl text-xs font-bold uppercase tracking-wider mt-2" disabled={loading}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Sign In
             </Button>
           </form>
         </CardContent>
-        <CardFooter>
-          <p className="w-full text-center text-sm text-muted-foreground">
+        <CardFooter className="pt-2">
+          <p className="w-full text-center text-xs text-muted-foreground">
             Don&apos;t have an account?{" "}
-            <Link href="/register" className="font-medium text-primary underline-offset-4 hover:underline">
+            <Link href="/register" className="font-semibold text-primary hover:underline underline-offset-2">
               Sign Up
             </Link>
           </p>
