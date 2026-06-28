@@ -206,12 +206,12 @@ export function TransactionsClient({
         {/* Total Income */}
         <Card className="rounded-2xl border-none shadow-sm bg-card p-5">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-500/10 text-blue-500">
               <TrendingUp className="h-5 w-5" />
             </div>
             <div>
               <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Total Income</p>
-              <p className="text-xl font-extrabold tracking-tight mt-0.5 text-emerald-500">
+              <p className="text-xl font-extrabold tracking-tight mt-0.5 text-blue-500">
                 +{formatCurrency(totalIncome)}
               </p>
             </div>
@@ -501,7 +501,7 @@ export function TransactionsClient({
                     <TableCell
                       className={`text-right font-bold text-xs ${
                         tx.type === "INCOME"
-                          ? "text-emerald-500"
+                          ? "text-blue-500"
                           : "text-rose-500"
                       }`}
                     >
