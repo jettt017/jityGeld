@@ -70,7 +70,7 @@ export function SavingsProgressCard({ stats }: SavingsProgressCardProps) {
                 <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
                   <stop offset="0%" stopColor="#ff6b6b" />    {/* Red */}
                   <stop offset="50%" stopColor="#ffb938" />   {/* Orange/Yellow */}
-                  <stop offset="100%" stopColor="#2cd682" />  {/* Green/Teal */}
+                  <stop offset="100%" stopColor="#06b6d4" />  {/* Cyan */}
                 </linearGradient>
               </defs>
             </svg>
@@ -80,7 +80,7 @@ export function SavingsProgressCard({ stats }: SavingsProgressCardProps) {
               <span className="text-3xl font-extrabold tracking-tight text-foreground block">
                 {percentage}%
               </span>
-              <span className="text-[10px] font-bold text-emerald-500 tracking-wider uppercase mt-0.5 block">
+              <span className="text-[10px] font-bold text-cyan-500 dark:text-cyan-400 tracking-wider uppercase mt-0.5 block">
                 On Track
               </span>
             </div>
