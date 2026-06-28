@@ -31,7 +31,7 @@ export function SavingsProgressCard({ stats }: SavingsProgressCardProps) {
   const strokeDashoffset = arcLength - (percentage / 100) * arcLength;
 
   return (
-    <Card className="rounded-2xl border-none shadow-sm bg-card p-6 flex flex-col justify-between h-full w-full min-h-[320px]">
+    <Card className="rounded-2xl border-none shadow-sm bg-card p-4 sm:p-6 flex flex-col justify-between h-full w-full min-h-[320px]">
       <div className="flex justify-between items-center shrink-0">
         <h3 className="text-sm font-semibold text-foreground">Savings Goals Progress</h3>
         {hasSavingsData && (
