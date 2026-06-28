@@ -32,6 +32,8 @@ export default async function DashboardPage() {
     getRecentTransactions(userId, 15),
   ]);
 
+  const hasTransactions = stats.totalIncome > 0 || stats.totalExpense > 0;
+
   return (
     <div className="space-y-4 pb-8">
       {/* Greeting */}
@@ -54,7 +56,7 @@ export default async function DashboardPage() {
         </div>
 
         <div className="col-span-12 md:col-span-6 lg:col-span-4 h-[320px]">
-          <SpendingAnalyticsCard monthlyData={monthlyData} />
+          <SpendingAnalyticsCard monthlyData={monthlyData} hasTransactions={hasTransactions} />
         </div>
 
         <div className="col-span-12 md:col-span-6 lg:col-span-4 h-[320px]">
@@ -65,7 +67,7 @@ export default async function DashboardPage() {
       {/* Row 2: Main Analytics Chart | Savings Progress — equal heights layout */}
       <div className="grid grid-cols-12 gap-4 items-stretch">
         <div className="col-span-12 lg:col-span-8 flex">
-          <MainAnalyticsChart data={monthlyData} />
+          <MainAnalyticsChart data={monthlyData} hasTransactions={hasTransactions} />
         </div>
         <div className="col-span-12 lg:col-span-4 flex">
           <SavingsProgressCard stats={stats} />
