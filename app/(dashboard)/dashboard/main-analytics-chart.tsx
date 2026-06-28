@@ -18,9 +18,10 @@ import Link from "next/link";
 
 interface MainAnalyticsChartProps {
   data: MonthlyData[];
+  hasTransactions: boolean;
 }
 
-export function MainAnalyticsChart({ data }: MainAnalyticsChartProps) {
+export function MainAnalyticsChart({ data, hasTransactions }: MainAnalyticsChartProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -28,9 +29,8 @@ export function MainAnalyticsChart({ data }: MainAnalyticsChartProps) {
     setIsMounted(true);
   }, []);
 
-  // Determine if there is sufficient transaction data (at least 2 months with income/expense)
-  const realDataMonths = data.filter((d) => d.income > 0 || d.expense > 0);
-  const hasSufficientData = realDataMonths.length >= 2;
+  // Show chart if there is at least one transaction in the database
+  const hasSufficientData = hasTransactions;
 
   const chartData = data.map((d) => ({
     month: d.month,
