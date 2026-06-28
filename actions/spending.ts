@@ -11,7 +11,6 @@ export async function getSpendingData(range: TimeRange) {
     const now = new Date();
 
     let startDate: Date;
-    let endDate: Date = new Date(); // now
     let prevStartDate: Date;
     let prevEndDate: Date;
 
