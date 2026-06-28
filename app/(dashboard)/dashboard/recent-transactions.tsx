@@ -57,7 +57,7 @@ export function RecentTransactionsList({
   const hasTransactions = transactions.length > 0;
 
   return (
-    <Card className="rounded-2xl border-none shadow-sm bg-card p-5 flex flex-col gap-3 h-full w-full">
+    <Card className="rounded-2xl border-none shadow-sm bg-card p-4 sm:p-5 flex flex-col gap-3 h-full w-full">
       {/* Header */}
       <div className="flex justify-between items-center shrink-0">
         <h3 className="text-sm font-semibold text-foreground">Transactions</h3>
