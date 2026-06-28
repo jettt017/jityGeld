@@ -32,8 +32,9 @@ export async function getDashboardStats(userId: string): Promise<DashboardStats>
 
 export async function getMonthlyData(userId: string): Promise<MonthlyData[]> {
   const sixMonthsAgo = new Date();
-  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5);
   sixMonthsAgo.setDate(1);
+  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5);
+  sixMonthsAgo.setHours(0, 0, 0, 0);
 
   const transactions = await prisma.transaction.findMany({
     where: {
@@ -53,6 +54,7 @@ export async function getMonthlyData(userId: string): Promise<MonthlyData[]> {
   // Initialize all 6 months
   for (let i = 0; i < 6; i++) {
     const d = new Date();
+    d.setDate(1);
     d.setMonth(d.getMonth() - (5 - i));
     const key = d.toLocaleDateString("en-US", { year: "numeric", month: "short" });
     monthlyMap.set(key, { income: 0, expense: 0 });
