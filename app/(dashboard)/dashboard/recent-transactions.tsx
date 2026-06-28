@@ -83,7 +83,7 @@ export function RecentTransactionsList({
                 <div
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
                     tx.type === "INCOME"
-                      ? "bg-emerald-500/12 text-emerald-600"
+                      ? "bg-emerald-500/12 text-emerald-600 dark:text-emerald-400"
                       : "bg-muted/60 text-foreground/55"
                   }`}
                 >
