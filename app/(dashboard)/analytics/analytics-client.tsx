@@ -93,8 +93,8 @@ export function AnalyticsClient({
       title: "Total Income",
       value: formatCurrency(stats.totalIncome),
       icon: TrendingUp,
-      color: "text-emerald-500",
-      bg: "bg-emerald-500/10",
+      color: "text-blue-500",
+      bg: "bg-blue-500/10",
     },
     {
       title: "Total Expense",
@@ -173,8 +173,8 @@ export function AnalyticsClient({
                     <AreaChart data={incomeTrend}>
                       <defs>
                         <linearGradient id="incomeGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#10b981" stopOpacity={0.2} />
-                          <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                          <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.2} />
+                          <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                         </linearGradient>
                       </defs>
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.04)" />
@@ -196,7 +196,7 @@ export function AnalyticsClient({
                         type="monotone"
                         dataKey="amount"
                         name="Income"
-                        stroke="#10b981"
+                        stroke="#3b82f6"
                         fill="url(#incomeGrad)"
                         strokeWidth={2}
                       />
@@ -354,7 +354,7 @@ export function AnalyticsClient({
                         formatter={(value: unknown) => formatIDR(Number(value))}
                       />
                       <Legend verticalAlign="bottom" iconType="circle" iconSize={8} wrapperStyle={{ fontSize: "11px", fontWeight: "500", marginTop: "12px" }} />
-                      <Bar dataKey="current" name="Saved" fill="#10b981" radius={[0, 8, 8, 0]} />
+                      <Bar dataKey="current" name="Saved" fill="#06b6d4" radius={[0, 8, 8, 0]} />
                       <Bar dataKey="target" name="Target" fill="#6366f1" radius={[0, 8, 8, 0]} opacity={0.2} />
                     </BarChart>
                   </ResponsiveContainer>
