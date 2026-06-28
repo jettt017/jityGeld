@@ -24,7 +24,7 @@ import {
 import Link from "next/link";
 
 interface SpendingAnalyticsProps {
-  monthlyData: any; // Kept for interface compatibility
+  monthlyData: unknown; // Kept for interface compatibility
   hasTransactions: boolean; // Kept for interface compatibility
 }
 
@@ -43,6 +43,7 @@ export function SpendingAnalyticsCard({}: SpendingAnalyticsProps) {
 
   // Hydration sync & load persisted choice
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true);
     const persisted = localStorage.getItem("spending_range");
     if (persisted === "weekly" || persisted === "monthly" || persisted === "yearly") {
