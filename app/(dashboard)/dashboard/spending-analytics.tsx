@@ -52,7 +52,7 @@ export function SpendingAnalyticsCard({ monthlyData, hasTransactions }: Spending
   const isDown = delta <= 0;
 
   return (
-    <Card className="rounded-2xl border-none shadow-sm bg-card p-5 flex flex-col h-full w-full justify-between">
+    <Card className="rounded-2xl border-none shadow-sm bg-card p-4 sm:p-5 flex flex-col h-full w-full justify-between">
       <div className="flex flex-col flex-1">
         {/* Header */}
         <div className="flex justify-between items-center shrink-0">
