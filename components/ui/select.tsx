@@ -45,7 +45,7 @@ function SelectTrigger({
       className={cn(
         "flex w-fit items-center justify-between gap-1.5 whitespace-nowrap transition-colors outline-none disabled:cursor-not-allowed disabled:opacity-50 data-placeholder:text-muted-foreground *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         variant === "default" && "rounded-none border border-transparent border-b-input bg-transparent px-0 py-2 text-sm focus-visible:border-b-ring aria-invalid:border-b-destructive data-[size=default]:h-10 data-[size=sm]:h-9 dark:aria-invalid:border-b-destructive/50 [&_svg:not([class*='size-'])]:size-3.5",
-        variant === "outline" && "h-9 px-[14px] rounded-[10px] border border-border bg-card text-sm font-medium hover:bg-muted/40 cursor-pointer [&_svg:not([class*='size-'])]:size-4 [&_svg]:text-muted-foreground",
+        variant === "outline" && "px-3 py-1 rounded-lg border border-border bg-card text-xs font-semibold hover:bg-muted/40 cursor-pointer transition-colors duration-200 [&_svg:not([class*='size-'])]:size-3 [&_svg]:text-muted-foreground",
         className
       )}
       {...props}
@@ -56,7 +56,7 @@ function SelectTrigger({
           <ChevronDownIcon
             className={cn(
               "pointer-events-none text-muted-foreground",
-              variant === "outline" ? "size-4" : "size-3.5"
+              variant === "outline" ? "size-3" : "size-3.5"
             )}
           />
         }
