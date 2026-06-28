@@ -156,12 +156,12 @@ export function SavingsClient({ goals }: SavingsClientProps) {
         {/* Total Saved */}
         <Card className="rounded-2xl border-none shadow-sm bg-card p-5">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-500">
               <Wallet className="h-5 w-5" />
             </div>
             <div>
               <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Total Saved</p>
-              <p className="text-xl font-extrabold tracking-tight mt-0.5 text-emerald-500">
+              <p className="text-xl font-extrabold tracking-tight mt-0.5 text-cyan-500">
                 {formatCurrency(totalSaved)}
               </p>
             </div>
@@ -272,12 +272,12 @@ export function SavingsClient({ goals }: SavingsClientProps) {
             <Card
               key={goal.id}
               className={`rounded-2xl border-none shadow-sm bg-card p-6 flex flex-col justify-between relative overflow-hidden transition-all hover:shadow-md ${
-                isCompleted ? "ring-2 ring-emerald-500/30" : ""
+                isCompleted ? "ring-2 ring-cyan-500/30" : ""
               }`}
             >
               {isCompleted && (
                 <div className="absolute right-4 top-4">
-                  <Badge className="bg-emerald-500/10 text-emerald-600 border-none hover:bg-emerald-500/10 rounded-md font-bold px-2.5 py-0.5 text-[10px]">
+                  <Badge className="bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-none hover:bg-cyan-500/10 rounded-md font-bold px-2.5 py-0.5 text-[10px]">
                     ✓ Completed
                   </Badge>
                 </div>
@@ -286,7 +286,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
               <div className="space-y-5 flex-1">
                 <div className="flex items-center gap-3">
                   <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
-                    isCompleted ? "bg-emerald-500/10 text-emerald-500" : "bg-primary/10 text-primary"
+                    isCompleted ? "bg-cyan-500/10 text-cyan-500" : "bg-primary/10 text-primary"
                   }`}>
                     <PiggyBank className="h-5 w-5" />
                   </div>
@@ -307,7 +307,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
                 <div className="space-y-1.5">
                   <div className="flex justify-between text-xs font-semibold">
                     <span className="text-muted-foreground">Progress</span>
-                    <span className={isCompleted ? "text-emerald-500" : "text-foreground"}>
+                    <span className={isCompleted ? "text-cyan-500 dark:text-cyan-400" : "text-foreground"}>
                       {percentage}%
                     </span>
                   </div>
@@ -315,7 +315,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
                     <div
                       className={`h-full rounded-full transition-all duration-500 ${
                         isCompleted
-                          ? "bg-gradient-to-r from-emerald-400 to-teal-500"
+                          ? "bg-gradient-to-r from-cyan-400 to-cyan-500"
                           : "bg-gradient-to-r from-indigo-500 to-primary"
                       }`}
                       style={{ width: `${Math.min(percentage, 100)}%` }}
@@ -329,7 +329,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
                     <p className="text-muted-foreground flex items-center gap-1 text-[10px] uppercase font-bold tracking-wider">
                       Saved
                     </p>
-                    <p className="font-extrabold text-sm text-emerald-500">
+                    <p className="font-extrabold text-sm text-cyan-500 dark:text-cyan-400">
                       {formatCurrency(goal.currentAmount)}
                     </p>
                   </div>
