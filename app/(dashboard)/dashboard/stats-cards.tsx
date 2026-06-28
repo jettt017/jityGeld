@@ -19,15 +19,15 @@ const cards = [
     key: "totalBalance" as const,
     title: "Total Balance",
     icon: DollarSign,
-    color: "text-primary",
-    bgColor: "bg-primary/10",
+    color: "text-indigo-500",
+    bgColor: "bg-indigo-500/10",
   },
   {
     key: "totalIncome" as const,
     title: "Total Income",
     icon: TrendingUp,
-    color: "text-emerald-500",
-    bgColor: "bg-emerald-500/10",
+    color: "text-blue-500",
+    bgColor: "bg-blue-500/10",
   },
   {
     key: "totalExpense" as const,
@@ -40,8 +40,8 @@ const cards = [
     key: "totalSavings" as const,
     title: "Total Savings",
     icon: PiggyBank,
-    color: "text-violet-500",
-    bgColor: "bg-violet-500/10",
+    color: "text-cyan-500",
+    bgColor: "bg-cyan-500/10",
   },
 ];
 
