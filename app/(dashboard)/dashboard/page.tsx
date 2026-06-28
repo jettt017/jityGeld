@@ -35,7 +35,7 @@ export default async function DashboardPage() {
   const hasTransactions = stats.totalIncome > 0 || stats.totalExpense > 0;
 
   return (
-    <div className="space-y-4 pb-8">
+    <div className="space-y-4 pb-8 animate-fade-in">
       {/* Greeting */}
       <div>
         <h1 className="text-2xl font-extrabold tracking-tight text-foreground">
