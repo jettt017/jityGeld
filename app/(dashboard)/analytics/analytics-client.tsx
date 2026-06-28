@@ -182,12 +182,13 @@ export function AnalyticsClient({
                       <YAxis tick={{ fontSize: 10, fill: "#888888", fontWeight: 500 }} tickLine={false} axisLine={false} tickFormatter={formatCompact} />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: "rgba(255, 255, 255, 0.95)",
-                          border: "none",
+                          backgroundColor: "var(--card)",
+                          border: "1px solid var(--border)",
                           boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
                           borderRadius: "16px",
                           fontSize: "12px",
                           fontWeight: "600",
+                          color: "var(--foreground)",
                         }}
                         formatter={(value: unknown) => formatIDR(Number(value))}
                       />
@@ -236,12 +237,13 @@ export function AnalyticsClient({
                       <YAxis tick={{ fontSize: 10, fill: "#888888", fontWeight: 500 }} tickLine={false} axisLine={false} tickFormatter={formatCompact} />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: "rgba(255, 255, 255, 0.95)",
-                          border: "none",
+                          backgroundColor: "var(--card)",
+                          border: "1px solid var(--border)",
                           boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
                           borderRadius: "16px",
                           fontSize: "12px",
                           fontWeight: "600",
+                          color: "var(--foreground)",
                         }}
                         formatter={(value: unknown) => formatIDR(Number(value))}
                       />
@@ -299,12 +301,13 @@ export function AnalyticsClient({
                       </Pie>
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: "rgba(255, 255, 255, 0.95)",
-                          border: "none",
+                          backgroundColor: "var(--card)",
+                          border: "1px solid var(--border)",
                           boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
                           borderRadius: "16px",
                           fontSize: "12px",
                           fontWeight: "600",
+                          color: "var(--foreground)",
                         }}
                         formatter={(value: unknown) => formatIDR(Number(value))}
                       />
@@ -340,12 +343,13 @@ export function AnalyticsClient({
                       <YAxis type="category" dataKey="name" tick={{ fontSize: 10, fill: "#888888", fontWeight: 500 }} tickLine={false} axisLine={false} width={80} />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: "rgba(255, 255, 255, 0.95)",
-                          border: "none",
+                          backgroundColor: "var(--card)",
+                          border: "1px solid var(--border)",
                           boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
                           borderRadius: "16px",
                           fontSize: "12px",
                           fontWeight: "600",
+                          color: "var(--foreground)",
                         }}
                         formatter={(value: unknown) => formatIDR(Number(value))}
                       />
