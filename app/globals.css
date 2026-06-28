@@ -89,6 +89,8 @@
   --sidebar-accent-foreground: oklch(0.25 0.015 255);
   --sidebar-border: oklch(0.915 0.008 250);
   --sidebar-ring: oklch(0.60 0.20 250);
+  --skeleton-base: #edf2f7;
+  --skeleton-highlight: #ffffff;
 }
 
 /* ─── Dark Theme: Premium Dark Fintech ───────────────────────── */
@@ -128,6 +130,8 @@
   --sidebar-accent-foreground: oklch(0.90 0.005 250);
   --sidebar-border: oklch(0.25 0.015 260);
   --sidebar-ring: oklch(0.72 0.16 250);
+  --skeleton-base: #1b1f27;
+  --skeleton-highlight: #2a303a;
 }
 
 @layer base {
@@ -165,4 +169,38 @@
   html[data-scroll-behavior="smooth"] {
     scroll-behavior: smooth;
   }
+}
+
+/* ─── Premium Shimmer and Fade Animations ────────────────────── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 25%,
+    var(--skeleton-highlight) 50%,
+    var(--skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite linear;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 200ms ease-out forwards;
 }
