@@ -22,7 +22,7 @@ export function TotalBalanceCard({ stats }: TotalBalanceCardProps) {
       : 0;
 
   return (
-    <Card className="rounded-2xl border-none shadow-sm bg-card p-5 flex flex-col gap-3 h-full w-full">
+    <Card className="rounded-2xl border-none shadow-sm bg-card p-4 sm:p-5 flex flex-col gap-3 h-full w-full">
       {/* Label + Balance */}
       <div>
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
