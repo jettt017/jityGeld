@@ -94,7 +94,7 @@ export function SpendingAnalyticsCard({}: SpendingAnalyticsProps) {
       <Card className="rounded-2xl border-none shadow-sm bg-card p-4 sm:p-5 flex flex-col h-full w-full justify-between animate-pulse">
         <div className="flex justify-between items-center">
           <Skeleton className="h-5 w-20 rounded-lg" />
-          <Skeleton className="h-9 w-[120px] rounded-[10px]" />
+          <Skeleton className="h-9 w-24 rounded-[10px]" />
         </div>
         <div className="space-y-3 mt-4 flex-1 flex flex-col justify-end">
           <Skeleton className="h-8 w-36 rounded-lg" />
@@ -113,7 +113,7 @@ export function SpendingAnalyticsCard({}: SpendingAnalyticsProps) {
         <div className="flex justify-between items-center shrink-0 mb-2.5">
           <h3 className="text-sm font-semibold text-foreground">Spending</h3>
           <Select value={range} onValueChange={(v) => setRange(v as TimeRange)}>
-            <SelectTrigger className="h-9 px-[14px] rounded-[10px] border border-border bg-card hover:bg-muted/40 transition-colors text-sm font-medium cursor-pointer w-[120px] flex items-center justify-between gap-1.5">
+            <SelectTrigger variant="outline">
               <SelectValue placeholder="Select Range" />
             </SelectTrigger>
             <SelectContent align="end" sideOffset={6} alignItemWithTrigger={false} className="w-[170px] p-[6px] rounded-[12px] border border-border bg-card shadow-md overflow-hidden flex flex-col gap-[2px] focus:outline-none">
