@@ -94,7 +94,7 @@ export function SpendingAnalyticsCard({}: SpendingAnalyticsProps) {
       <Card className="rounded-2xl border-none shadow-sm bg-card p-4 sm:p-5 flex flex-col h-full w-full justify-between animate-pulse">
         <div className="flex justify-between items-center">
           <Skeleton className="h-5 w-20 rounded-lg" />
-          <Skeleton className="h-9 w-24 rounded-[10px]" />
+          <Skeleton className="h-7 w-24 rounded-lg" />
         </div>
         <div className="space-y-3 mt-4 flex-1 flex flex-col justify-end">
           <Skeleton className="h-8 w-36 rounded-lg" />
