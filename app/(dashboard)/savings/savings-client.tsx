@@ -135,7 +135,7 @@ export function SavingsClient({ goals }: SavingsClientProps) {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-fade-in">
       {/* Summary Cards */}
       <div className="grid gap-6 sm:grid-cols-3">
         {/* Total Target */}
