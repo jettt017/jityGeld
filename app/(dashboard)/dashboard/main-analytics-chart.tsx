@@ -41,7 +41,7 @@ export function MainAnalyticsChart({ data, hasTransactions }: MainAnalyticsChart
   const currentMonthExpenses = chartData[chartData.length - 1]?.expense || 0;
 
   return (
-    <Card className="rounded-2xl border-none shadow-sm bg-card p-6 flex flex-col gap-4 w-full h-full justify-between">
+    <Card className="rounded-2xl border-none shadow-sm bg-card p-4 sm:p-6 flex flex-col gap-4 w-full h-full justify-between">
       <div className="space-y-4">
         {/* Header with selector */}
         <div className="flex justify-between items-center">
