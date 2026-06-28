@@ -30,16 +30,16 @@ export async function getDashboardStats(userId: string): Promise<DashboardStats>
   };
 }
 
-export async function getMonthlyData(userId: string): Promise<MonthlyData[]> {
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setDate(1);
-  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5);
-  sixMonthsAgo.setHours(0, 0, 0, 0);
+export async function getMonthlyTrend(userId: string, monthsCount: number = 6): Promise<MonthlyData[]> {
+  const startDate = new Date();
+  startDate.setDate(1);
+  startDate.setMonth(startDate.getMonth() - (monthsCount - 1));
+  startDate.setHours(0, 0, 0, 0);
 
   const transactions = await prisma.transaction.findMany({
     where: {
       userId,
-      transactionDate: { gte: sixMonthsAgo },
+      transactionDate: { gte: startDate },
     },
     select: {
       amount: true,
@@ -51,11 +51,11 @@ export async function getMonthlyData(userId: string): Promise<MonthlyData[]> {
 
   const monthlyMap = new Map<string, { income: number; expense: number }>();
 
-  // Initialize all 6 months
-  for (let i = 0; i < 6; i++) {
+  // Initialize months in order
+  for (let i = 0; i < monthsCount; i++) {
     const d = new Date();
     d.setDate(1);
-    d.setMonth(d.getMonth() - (5 - i));
+    d.setMonth(d.getMonth() - (monthsCount - 1 - i));
     const key = d.toLocaleDateString("en-US", { year: "numeric", month: "short" });
     monthlyMap.set(key, { income: 0, expense: 0 });
   }
@@ -63,19 +63,25 @@ export async function getMonthlyData(userId: string): Promise<MonthlyData[]> {
   for (const tx of transactions) {
     const date = new Date(tx.transactionDate);
     const key = date.toLocaleDateString("en-US", { year: "numeric", month: "short" });
-    const current = monthlyMap.get(key) || { income: 0, expense: 0 };
-    if (tx.type === "INCOME") {
-      current.income += Number(tx.amount);
-    } else {
-      current.expense += Number(tx.amount);
+    const current = monthlyMap.get(key);
+    if (current) {
+      if (tx.type === "INCOME") {
+        current.income += Number(tx.amount);
+      } else {
+        current.expense += Number(tx.amount);
+      }
+      monthlyMap.set(key, current);
     }
-    monthlyMap.set(key, current);
   }
 
   return Array.from(monthlyMap.entries()).map(([month, data]) => ({
     month,
     ...data,
   }));
+}
+
+export async function getMonthlyData(userId: string): Promise<MonthlyData[]> {
+  return getMonthlyTrend(userId, 6);
 }
 
 export async function getExpenseByCategory(userId: string): Promise<CategoryExpense[]> {

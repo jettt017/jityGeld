@@ -1,40 +1,21 @@
 import { prisma } from "@/lib/prisma";
 import { CHART_COLORS } from "@/utils";
+import { getMonthlyTrend } from "./dashboard";
 
 export async function getMonthlyIncomeTrend(userId: string) {
-  const twelveMonthsAgo = new Date();
-  twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 11);
-  twelveMonthsAgo.setDate(1);
-
-  const transactions = await prisma.transaction.findMany({
-    where: {
-      userId,
-      type: "INCOME",
-      transactionDate: { gte: twelveMonthsAgo },
-    },
-    select: { amount: true, transactionDate: true },
-    orderBy: { transactionDate: "asc" },
-  });
-
-  return aggregateByMonth(transactions, 12);
+  const trend = await getMonthlyTrend(userId, 12);
+  return trend.map((t) => ({
+    month: t.month,
+    amount: t.income,
+  }));
 }
 
 export async function getMonthlyExpenseTrend(userId: string) {
-  const twelveMonthsAgo = new Date();
-  twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 11);
-  twelveMonthsAgo.setDate(1);
-
-  const transactions = await prisma.transaction.findMany({
-    where: {
-      userId,
-      type: "EXPENSE",
-      transactionDate: { gte: twelveMonthsAgo },
-    },
-    select: { amount: true, transactionDate: true },
-    orderBy: { transactionDate: "asc" },
-  });
-
-  return aggregateByMonth(transactions, 12);
+  const trend = await getMonthlyTrend(userId, 12);
+  return trend.map((t) => ({
+    month: t.month,
+    amount: t.expense,
+  }));
 }
 
 export async function getExpenseDistribution(userId: string) {
@@ -144,29 +125,3 @@ export async function getAnalyticsStats(userId: string) {
   };
 }
 
-// ─── Helper ───────────────────────────────────────────────────
-function aggregateByMonth(
-  transactions: { amount: unknown; transactionDate: Date }[],
-  months: number
-) {
-  const monthlyMap = new Map<string, number>();
-
-  for (let i = 0; i < months; i++) {
-    const d = new Date();
-    d.setMonth(d.getMonth() - (months - 1 - i));
-    const key = d.toLocaleDateString("en-US", { year: "numeric", month: "short" });
-    monthlyMap.set(key, 0);
-  }
-
-  for (const tx of transactions) {
-    const date = new Date(tx.transactionDate);
-    const key = date.toLocaleDateString("en-US", { year: "numeric", month: "short" });
-    const current = monthlyMap.get(key) || 0;
-    monthlyMap.set(key, current + Number(tx.amount));
-  }
-
-  return Array.from(monthlyMap.entries()).map(([month, amount]) => ({
-    month,
-    amount,
-  }));
-}
