@@ -31,7 +31,7 @@ export function SavingsProgressCard({ stats }: SavingsProgressCardProps) {
   const strokeDashoffset = arcLength - (percentage / 100) * arcLength;
 
   return (
-    <Card className="rounded-2xl border-none shadow-sm bg-card p-6 flex flex-col justify-between h-full min-h-[320px]">
+    <Card className="rounded-2xl border-none shadow-sm bg-card p-6 flex flex-col justify-between h-full w-full min-h-[320px]">
       <div className="flex justify-between items-center shrink-0">
         <h3 className="text-sm font-semibold text-foreground">Savings Goals Progress</h3>
         {hasSavingsData && (
@@ -50,7 +50,8 @@ export function SavingsProgressCard({ stats }: SavingsProgressCardProps) {
               <path
                 d="M 20 85 A 60 60 0 1 1 140 85"
                 fill="none"
-                stroke="#e2ecf8"
+                stroke="currentColor"
+                className="text-[#e2ecf8] dark:text-zinc-800"
                 strokeWidth={strokeWidth}
                 strokeLinecap="round"
               />
