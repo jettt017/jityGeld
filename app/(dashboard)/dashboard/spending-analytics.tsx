@@ -94,7 +94,7 @@ export function SpendingAnalyticsCard({}: SpendingAnalyticsProps) {
       <Card className="rounded-2xl border-none shadow-sm bg-card p-4 sm:p-5 flex flex-col h-full w-full justify-between animate-pulse">
         <div className="flex justify-between items-center">
           <Skeleton className="h-5 w-20 rounded-lg" />
-          <Skeleton className="h-7 w-24 rounded-lg" />
+          <Skeleton className="h-10 w-[110px] rounded-xl" />
         </div>
         <div className="space-y-3 mt-4 flex-1 flex flex-col justify-end">
           <Skeleton className="h-8 w-36 rounded-lg" />
@@ -113,13 +113,13 @@ export function SpendingAnalyticsCard({}: SpendingAnalyticsProps) {
         <div className="flex justify-between items-center shrink-0 mb-2.5">
           <h3 className="text-sm font-semibold text-foreground">Spending</h3>
           <Select value={range} onValueChange={(v) => setRange(v as TimeRange)}>
-            <SelectTrigger className="h-7 w-24 border bg-muted/30 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-colors hover:bg-muted/60 cursor-pointer">
+            <SelectTrigger className="h-10 px-4 rounded-xl border border-border bg-card hover:bg-muted/40 transition-colors text-sm font-medium cursor-pointer w-[110px] flex items-center justify-between gap-1.5">
               <SelectValue placeholder="Select Range" />
             </SelectTrigger>
-            <SelectContent className="rounded-xl">
-              <SelectItem value="weekly" className="text-xs font-semibold rounded-lg cursor-pointer">Weekly</SelectItem>
-              <SelectItem value="monthly" className="text-xs font-semibold rounded-lg cursor-pointer">Monthly</SelectItem>
-              <SelectItem value="yearly" className="text-xs font-semibold rounded-lg cursor-pointer">Yearly</SelectItem>
+            <SelectContent align="end" sideOffset={8} alignItemWithTrigger={false} className="min-w-[160px] max-w-[180px] w-[160px] rounded-2xl shadow-xl border border-border bg-popover overflow-hidden p-1.5">
+              <SelectItem value="weekly" className="h-10 px-3 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors duration-200 focus:outline-none data-[highlighted]:bg-blue-50 dark:data-[highlighted]:bg-blue-950/30 data-[highlighted]:text-blue-600 dark:data-[highlighted]:text-blue-400 data-[selected]:bg-blue-600 data-[selected]:text-white dark:data-[selected]:bg-blue-500 dark:data-[selected]:text-white flex items-center justify-between relative pr-8">Weekly</SelectItem>
+              <SelectItem value="monthly" className="h-10 px-3 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors duration-200 focus:outline-none data-[highlighted]:bg-blue-50 dark:data-[highlighted]:bg-blue-950/30 data-[highlighted]:text-blue-600 dark:data-[highlighted]:text-blue-400 data-[selected]:bg-blue-600 data-[selected]:text-white dark:data-[selected]:bg-blue-500 dark:data-[selected]:text-white flex items-center justify-between relative pr-8">Monthly</SelectItem>
+              <SelectItem value="yearly" className="h-10 px-3 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors duration-200 focus:outline-none data-[highlighted]:bg-blue-50 dark:data-[highlighted]:bg-blue-950/30 data-[highlighted]:text-blue-600 dark:data-[highlighted]:text-blue-400 data-[selected]:bg-blue-600 data-[selected]:text-white dark:data-[selected]:bg-blue-500 dark:data-[selected]:text-white flex items-center justify-between relative pr-8">Yearly</SelectItem>
             </SelectContent>
           </Select>
         </div>
