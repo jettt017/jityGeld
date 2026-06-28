@@ -128,7 +128,7 @@ export function AnalyticsClient({
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-fade-in">
       {/* Stat Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {statCards.map((card) => {
