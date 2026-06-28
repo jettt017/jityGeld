@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ChevronDown, TrendingDown, TrendingUp, BarChart3, Plus } from "lucide-react";
+import { TrendingDown, TrendingUp, BarChart3, Plus } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import {
   BarChart,
@@ -12,142 +12,209 @@ import {
   Tooltip,
 } from "recharts";
 import { formatCurrency } from "@/utils";
-import type { MonthlyData } from "@/types";
+import { getSpendingData, type TimeRange } from "@/actions/spending";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Link from "next/link";
 
 interface SpendingAnalyticsProps {
-  monthlyData: MonthlyData[];
-  hasTransactions: boolean;
+  monthlyData: any; // Kept for interface compatibility
+  hasTransactions: boolean; // Kept for interface compatibility
 }
 
 const CHART_H = 196;
 
-export function SpendingAnalyticsCard({ monthlyData, hasTransactions }: SpendingAnalyticsProps) {
+export function SpendingAnalyticsCard({}: SpendingAnalyticsProps) {
   const [isMounted, setIsMounted] = useState(false);
+  const [range, setRange] = useState<TimeRange>("monthly");
+  const [loading, setLoading] = useState(true);
+  const [spendingData, setSpendingData] = useState<{
+    currentTotal: number;
+    delta: number;
+    isDown: boolean;
+    chartData: { name: string; amount: number }[];
+  } | null>(null);
 
+  // Hydration sync & load persisted choice
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true);
+    const persisted = localStorage.getItem("spending_range");
+    if (persisted === "weekly" || persisted === "monthly" || persisted === "yearly") {
+      setRange(persisted as TimeRange);
+    }
   }, []);
 
-  // Show chart if there is at least one transaction in the database
-  const hasSufficientExpenses = hasTransactions;
+  // Fetch spending data when range changes
+  useEffect(() => {
+    if (!isMounted) return;
 
-  const displayData = monthlyData.map((d) => {
-    const match = d.month.match(/[a-zA-Z]+/);
-    const monthName = match ? match[0] : d.month;
-    return {
-      month: monthName,
-      amount: d.expense,
-    };
-  });
+    localStorage.setItem("spending_range", range);
 
-  const lastEntry = displayData[displayData.length - 1];
-  const prevEntry = displayData[displayData.length - 2];
-  const currentSpending = lastEntry?.amount ?? 0;
-  const delta =
-    prevEntry?.amount && prevEntry.amount > 0
-      ? ((currentSpending - prevEntry.amount) / prevEntry.amount) * 100
-      : 0;
-  const isDown = delta <= 0;
+    async function loadSpending() {
+      setLoading(true);
+      const result = await getSpendingData(range);
+      if (result.success && result.data) {
+        setSpendingData(result.data);
+      }
+      setLoading(false);
+    }
+
+    loadSpending();
+  }, [range, isMounted]);
+
+  // Compute active column highlight index according to calendar date
+  const getActiveBarIndex = () => {
+    const now = new Date();
+    if (range === "weekly") {
+      // 0 is Sun, 1 is Mon...
+      return (now.getDay() + 6) % 7;
+    } else if (range === "monthly") {
+      const dayOfMonth = now.getDate();
+      if (dayOfMonth <= 7) return 0;
+      if (dayOfMonth <= 14) return 1;
+      if (dayOfMonth <= 21) return 2;
+      return 3;
+    } else {
+      return now.getMonth(); // 0 is Jan
+    }
+  };
+
+  const activeBarIndex = getActiveBarIndex();
+
+  // Initial SSR skeleton placeholder to prevent layout shifts
+  if (!isMounted) {
+    return (
+      <Card className="rounded-2xl border-none shadow-sm bg-card p-4 sm:p-5 flex flex-col h-full w-full justify-between animate-pulse">
+        <div className="flex justify-between items-center">
+          <Skeleton className="h-5 w-20 rounded-lg" />
+          <Skeleton className="h-7 w-24 rounded-lg" />
+        </div>
+        <div className="space-y-3 mt-4 flex-1 flex flex-col justify-end">
+          <Skeleton className="h-8 w-36 rounded-lg" />
+          <div className="h-32 w-full bg-muted/10 rounded-2xl" />
+        </div>
+      </Card>
+    );
+  }
+
+  const hasData = spendingData && spendingData.currentTotal > 0;
 
   return (
     <Card className="rounded-2xl border-none shadow-sm bg-card p-4 sm:p-5 flex flex-col h-full w-full justify-between">
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1 h-full">
         {/* Header */}
-        <div className="flex justify-between items-center shrink-0">
+        <div className="flex justify-between items-center shrink-0 mb-2.5">
           <h3 className="text-sm font-semibold text-foreground">Spending</h3>
-          {hasSufficientExpenses && (
-            <button className="flex items-center gap-1 px-2.5 py-1 rounded-lg border text-[10px] font-semibold hover:bg-muted/40 transition-colors text-muted-foreground">
-              Monthly <ChevronDown className="h-3 w-3" />
-            </button>
-          )}
+          <Select value={range} onValueChange={(v) => setRange(v as TimeRange)}>
+            <SelectTrigger className="h-7 w-24 border bg-muted/30 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-colors hover:bg-muted/60 cursor-pointer">
+              <SelectValue placeholder="Select Range" />
+            </SelectTrigger>
+            <SelectContent className="rounded-xl">
+              <SelectItem value="weekly" className="text-xs font-semibold rounded-lg cursor-pointer">Weekly</SelectItem>
+              <SelectItem value="monthly" className="text-xs font-semibold rounded-lg cursor-pointer">Monthly</SelectItem>
+              <SelectItem value="yearly" className="text-xs font-semibold rounded-lg cursor-pointer">Yearly</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
-        {hasSufficientExpenses ? (
-          <>
+        {loading ? (
+          /* Shimmering Loading Graph State */
+          <div className="flex-1 flex flex-col justify-between h-full">
+            <Skeleton className="h-8 w-36 rounded-lg mt-2 mb-4 shrink-0" />
+            <div style={{ width: "100%", height: CHART_H }} className="flex items-end justify-between gap-3 px-2 mt-auto">
+              {Array.from({ length: range === "weekly" ? 7 : range === "monthly" ? 4 : 12 }).map((_, i) => (
+                <Skeleton
+                  key={i}
+                  className="w-full rounded-t-lg"
+                  style={{ height: `${(i % 3) * 20 + 30}%` }}
+                />
+              ))}
+            </div>
+          </div>
+        ) : hasData && spendingData ? (
+          <div className="flex-1 flex flex-col justify-between h-full">
             {/* Amount + Delta */}
-            <div className="flex items-baseline gap-2 mt-2.5 mb-4 shrink-0">
-              <h2 className="text-2xl font-extrabold tracking-tight text-foreground">
-                {formatCurrency(currentSpending)}
+            <div className="flex items-baseline gap-2 mt-1 mb-4 shrink-0">
+              <h2 className="text-2xl font-extrabold tracking-tight text-foreground leading-none">
+                {formatCurrency(spendingData.currentTotal)}
               </h2>
               <div
                 className={`flex items-center gap-0.5 text-[10px] font-bold ${
-                  isDown ? "text-emerald-500" : "text-rose-500"
+                  spendingData.isDown ? "text-emerald-500" : "text-rose-500"
                 }`}
               >
-                {isDown ? (
+                {spendingData.isDown ? (
                   <TrendingDown className="h-3 w-3" />
                 ) : (
                   <TrendingUp className="h-3 w-3" />
                 )}
-                {isDown ? "" : "+"}
-                {delta.toFixed(1)}%
+                {spendingData.isDown ? "" : "+"}
+                {spendingData.delta.toFixed(1)}%
               </div>
             </div>
 
-            {/* Bar Chart */}
+            {/* Recharts Bar Graph */}
             <div style={{ width: "100%", height: CHART_H, minWidth: 0, minHeight: CHART_H }} className="mt-auto">
-              {isMounted ? (
-                <ResponsiveContainer width="100%" height={CHART_H}>
-                  <BarChart
-                    data={displayData}
-                    margin={{ top: 4, right: 0, left: 0, bottom: 0 }}
-                    barCategoryGap="28%"
-                  >
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      axisLine={false}
-                      tick={{ fontSize: 9, fill: "var(--muted-foreground)" }}
-                    />
-                    <Tooltip
-                      cursor={{ fill: "var(--muted)", fillOpacity: 0.25 }}
-                      contentStyle={{
-                        backgroundColor: "var(--card)",
-                        border: "1px solid var(--border)",
-                        borderRadius: "10px",
-                        fontSize: "11px",
-                      }}
-                      formatter={(value: unknown) => [
-                        formatCurrency(Number(value)),
-                        "Spending",
-                      ]}
-                    />
-                    <Bar dataKey="amount" radius={[8, 8, 8, 8]} maxBarSize={24}>
-                      {displayData.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={
-                            index === displayData.length - 1 ? "#f43f5e" : "#fca5a5"
-                          }
-                        />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              ) : (
-                <div
-                  style={{ width: "100%", height: CHART_H }}
-                  className="bg-muted/10 animate-pulse rounded-2xl"
-                />
-              )}
+              <ResponsiveContainer width="100%" height={CHART_H}>
+                <BarChart
+                  data={spendingData.chartData}
+                  margin={{ top: 4, right: 0, left: 0, bottom: 0 }}
+                  barCategoryGap="28%"
+                >
+                  <XAxis
+                    dataKey="name"
+                    tickLine={false}
+                    axisLine={false}
+                    tick={{ fontSize: 9, fill: "var(--muted-foreground)" }}
+                  />
+                  <Tooltip
+                    cursor={{ fill: "var(--muted)", fillOpacity: 0.25 }}
+                    contentStyle={{
+                      backgroundColor: "var(--card)",
+                      border: "1px solid var(--border)",
+                      borderRadius: "10px",
+                      fontSize: "11px",
+                    }}
+                    formatter={(value: unknown) => [
+                      formatCurrency(Number(value)),
+                      "Spending",
+                    ]}
+                  />
+                  <Bar dataKey="amount" radius={[8, 8, 8, 8]} maxBarSize={24} animationDuration={300}>
+                    {spendingData.chartData.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={
+                          index === activeBarIndex ? "#f43f5e" : "#fca5a5"
+                        }
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
             </div>
-          </>
+          </div>
         ) : (
+          /* Timeframe Empty State */
           <div className="flex-1 flex flex-col items-center justify-center text-center p-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-muted/40 text-muted-foreground mb-3">
               <BarChart3 className="h-6 w-6" />
             </div>
             <p className="text-xs font-bold text-foreground mb-1">
-              No spending history yet.
+              No spending data available.
             </p>
             <p className="text-[10px] text-muted-foreground max-w-[200px] mb-4 leading-normal">
-              Your spending history will build automatically as you start logging expenses.
+              Try changing your time range or logging a new transaction to see your metrics.
             </p>
             <Link
               href="/transactions"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-primary-foreground hover:bg-primary/95 transition-all shadow-sm"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-primary-foreground hover:bg-primary/95 transition-all shadow-sm cursor-pointer"
             >
               <Plus className="h-3 w-3" /> Record Expense
             </Link>
