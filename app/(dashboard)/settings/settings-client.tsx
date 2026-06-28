@@ -165,7 +165,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2">
+    <div className="grid gap-6 md:grid-cols-2 animate-fade-in">
       {/* Profile & Preferences Settings Card */}
       <Card className="rounded-2xl border-none shadow-sm bg-card p-6 flex flex-col justify-between">
         <div>
