@@ -73,8 +73,8 @@ export function MainAnalyticsChart({ data, hasTransactions }: MainAnalyticsChart
                     <stop offset="95%" stopColor="#76a5ff" stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="expenseGradMain" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#2e2e2e" stopOpacity={0.15} />
-                    <stop offset="95%" stopColor="#2e2e2e" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#fca5a5" stopOpacity={0.25} />
+                    <stop offset="95%" stopColor="#fca5a5" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} className="stroke-muted/30" />
@@ -114,12 +114,12 @@ export function MainAnalyticsChart({ data, hasTransactions }: MainAnalyticsChart
                   fill="url(#incomeGradMain)"
                   dot={false}
                 />
-                {/* Expense Trend Area (Dark Charcoal) */}
+                {/* Expense Trend Area (Red) */}
                 <Area
                   type="monotone"
                   dataKey="expense"
                   name="Expense"
-                  stroke="#2e2e2e"
+                  stroke="#f43f5e"
                   strokeWidth={2.5}
                   fill="url(#expenseGradMain)"
                   dot={false}
