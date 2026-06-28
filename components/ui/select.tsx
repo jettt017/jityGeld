@@ -31,17 +31,21 @@ function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
 function SelectTrigger({
   className,
   size = "default",
+  variant = "default",
   children,
   ...props
 }: SelectPrimitive.Trigger.Props & {
   size?: "sm" | "default"
+  variant?: "default" | "outline"
 }) {
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "flex w-fit items-center justify-between gap-1.5 rounded-none border border-transparent border-b-input bg-transparent px-0 py-2 text-sm whitespace-nowrap transition-[color,border-color] outline-none focus-visible:border-b-ring disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-b-destructive data-placeholder:text-muted-foreground data-[size=default]:h-10 data-[size=sm]:h-9 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 dark:aria-invalid:border-b-destructive/50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
+        "flex w-fit items-center justify-between gap-1.5 whitespace-nowrap transition-colors outline-none disabled:cursor-not-allowed disabled:opacity-50 data-placeholder:text-muted-foreground *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        variant === "default" && "rounded-none border border-transparent border-b-input bg-transparent px-0 py-2 text-sm focus-visible:border-b-ring aria-invalid:border-b-destructive data-[size=default]:h-10 data-[size=sm]:h-9 dark:aria-invalid:border-b-destructive/50 [&_svg:not([class*='size-'])]:size-3.5",
+        variant === "outline" && "h-9 px-[14px] rounded-[10px] border border-border bg-card text-sm font-medium hover:bg-muted/40 cursor-pointer [&_svg:not([class*='size-'])]:size-4 [&_svg]:text-muted-foreground",
         className
       )}
       {...props}
@@ -49,7 +53,12 @@ function SelectTrigger({
       {children}
       <SelectPrimitive.Icon
         render={
-          <ChevronDownIcon className="pointer-events-none size-3.5 text-muted-foreground" />
+          <ChevronDownIcon
+            className={cn(
+              "pointer-events-none text-muted-foreground",
+              variant === "outline" ? "size-4" : "size-3.5"
+            )}
+          />
         }
       />
     </SelectPrimitive.Trigger>
