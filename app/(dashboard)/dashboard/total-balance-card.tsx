@@ -36,7 +36,7 @@ export function TotalBalanceCard({ stats }: TotalBalanceCardProps) {
       {/* Quick Action Buttons */}
       <div className="flex gap-2">
         <button className="flex-1 flex items-center justify-center gap-1.5 rounded-lg border bg-muted/30 hover:bg-muted/60 text-foreground py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-colors">
-          <div className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-500">
+          <div className="flex h-4 w-4 items-center justify-center rounded-full bg-blue-500/15 text-blue-500">
             <ArrowUpRight className="h-2.5 w-2.5" />
           </div>
           Send
@@ -56,7 +56,7 @@ export function TotalBalanceCard({ stats }: TotalBalanceCardProps) {
       <div className="grid grid-cols-3 gap-2">
         <div className="flex flex-col gap-0.5">
           <div className="flex items-center gap-1 mb-0.5">
-            <div className="h-2 w-2 rounded-full bg-emerald-400" />
+            <div className="h-2 w-2 rounded-full bg-blue-400" />
             <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-wider">
               Income
             </span>
@@ -80,7 +80,7 @@ export function TotalBalanceCard({ stats }: TotalBalanceCardProps) {
 
         <div className="flex flex-col gap-0.5">
           <div className="flex items-center gap-1 mb-0.5">
-            <div className="h-2 w-2 rounded-full bg-blue-400" />
+            <div className="h-2 w-2 rounded-full bg-cyan-400" />
             <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-wider">
               Savings
             </span>
@@ -106,7 +106,7 @@ export function TotalBalanceCard({ stats }: TotalBalanceCardProps) {
         </div>
         <div className="h-1.5 w-full rounded-full bg-muted/40 overflow-hidden">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 transition-all duration-500"
+            className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 transition-all duration-500"
             style={{ width: `${Math.min(savingsRate, 100)}%` }}
           />
         </div>
