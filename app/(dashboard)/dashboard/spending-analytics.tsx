@@ -19,21 +19,6 @@ interface SpendingAnalyticsProps {
   monthlyData: MonthlyData[];
 }
 
-const SCAFFOLD: { month: string; amount: number }[] = [
-  { month: "Jan", amount: 0 },
-  { month: "Feb", amount: 0 },
-  { month: "Mar", amount: 0 },
-  { month: "Apr", amount: 0 },
-  { month: "May", amount: 0 },
-  { month: "Jun", amount: 0 },
-  { month: "Jul", amount: 0 },
-  { month: "Aug", amount: 0 },
-  { month: "Sep", amount: 0 },
-  { month: "Oct", amount: 0 },
-  { month: "Nov", amount: 0 },
-  { month: "Dec", amount: 0 },
-];
-
 const CHART_H = 196;
 
 export function SpendingAnalyticsCard({ monthlyData }: SpendingAnalyticsProps) {
@@ -48,18 +33,14 @@ export function SpendingAnalyticsCard({ monthlyData }: SpendingAnalyticsProps) {
   const realExpenseMonths = monthlyData.filter((d) => d.expense > 0);
   const hasSufficientExpenses = realExpenseMonths.length >= 2;
 
-  // Map real data if it exists
-  const realMap = new Map(
-    monthlyData.map((d) => [d.month.slice(0, 3), d.expense])
-  );
-
-  const chartData = SCAFFOLD.map((s) => ({
-    month: s.month,
-    amount: realMap.get(s.month) ?? 0,
-  }));
-
-  // Show last 7 months
-  const displayData = chartData.slice(-7);
+  const displayData = monthlyData.map((d) => {
+    const match = d.month.match(/[a-zA-Z]+/);
+    const monthName = match ? match[0] : d.month;
+    return {
+      month: monthName,
+      amount: d.expense,
+    };
+  });
 
   const lastEntry = displayData[displayData.length - 1];
   const prevEntry = displayData[displayData.length - 2];
