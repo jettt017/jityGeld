@@ -116,7 +116,7 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
                 <div className="flex items-center gap-3">
                   <div className={cn(
                     "flex h-10 w-10 shrink-0 items-center justify-center rounded-full",
-                    type === "INCOME" ? "bg-emerald-500/10 text-emerald-500" : "bg-rose-500/10 text-rose-500"
+                    type === "INCOME" ? "bg-blue-500/10 text-blue-500" : "bg-rose-500/10 text-rose-500"
                   )}>
                     <Tag className="h-4.5 w-4.5" />
                   </div>
@@ -190,12 +190,12 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
         {/* Income Categories */}
         <Card className="rounded-2xl border-none shadow-sm bg-card p-5">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-500/10 text-blue-500">
               <TrendingUp className="h-5 w-5" />
             </div>
             <div>
               <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Income Categories</p>
-              <p className="text-xl font-extrabold tracking-tight mt-0.5 text-emerald-500">
+              <p className="text-xl font-extrabold tracking-tight mt-0.5 text-blue-500">
                 {incomeCount}
               </p>
             </div>
