@@ -17,11 +17,12 @@ import Link from "next/link";
 
 interface SpendingAnalyticsProps {
   monthlyData: MonthlyData[];
+  hasTransactions: boolean;
 }
 
 const CHART_H = 196;
 
-export function SpendingAnalyticsCard({ monthlyData }: SpendingAnalyticsProps) {
+export function SpendingAnalyticsCard({ monthlyData, hasTransactions }: SpendingAnalyticsProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -29,9 +30,8 @@ export function SpendingAnalyticsCard({ monthlyData }: SpendingAnalyticsProps) {
     setIsMounted(true);
   }, []);
 
-  // Determine if we have sufficient spending data (at least 2 months with expense > 0)
-  const realExpenseMonths = monthlyData.filter((d) => d.expense > 0);
-  const hasSufficientExpenses = realExpenseMonths.length >= 2;
+  // Show chart if there is at least one transaction in the database
+  const hasSufficientExpenses = hasTransactions;
 
   const displayData = monthlyData.map((d) => {
     const match = d.month.match(/[a-zA-Z]+/);
