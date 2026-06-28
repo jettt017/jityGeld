@@ -119,7 +119,7 @@ export function SpendingAnalyticsCard({ monthlyData, hasTransactions }: Spending
                         <Cell
                           key={`cell-${index}`}
                           fill={
-                            index === displayData.length - 1 ? "#7ab4f5" : "#c8deff"
+                            index === displayData.length - 1 ? "#f43f5e" : "#fca5a5"
                           }
                         />
                       ))}
