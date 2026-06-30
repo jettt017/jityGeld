@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { ExportButton } from "@/components/export/export-button";
 import {
   Dialog,
   DialogContent,
@@ -260,7 +261,9 @@ export function TransactionsClient({
             <Filter className="h-4 w-4" />
           </Button>
         </div>
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <div className="flex items-center gap-2">
+          <ExportButton categories={categories} />
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger
             render={
               <Button onClick={openCreateDialog} className="rounded-xl px-5 h-12">
@@ -360,6 +363,7 @@ export function TransactionsClient({
             </form>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
 
       {/* Filters */}
