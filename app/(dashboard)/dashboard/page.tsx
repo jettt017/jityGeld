@@ -3,6 +3,7 @@ import {
   getDashboardStats,
   getMonthlyData,
   getRecentTransactions,
+  getActiveSavingsGoal,
 } from "@/services/dashboard";
 import { createClient } from "@/lib/supabase/server";
 import { TotalBalanceCard } from "./total-balance-card";
@@ -26,10 +27,11 @@ export default async function DashboardPage() {
   const userName =
     user?.user_metadata?.name || user?.email?.split("@")[0] || "User";
 
-  const [stats, monthlyData, recentTransactions] = await Promise.all([
+  const [stats, monthlyData, recentTransactions, activeGoal] = await Promise.all([
     getDashboardStats(userId),
     getMonthlyData(userId),
     getRecentTransactions(userId, 15),
+    getActiveSavingsGoal(userId),
   ]);
 
   const hasTransactions = stats.totalIncome > 0 || stats.totalExpense > 0;
@@ -70,7 +72,7 @@ export default async function DashboardPage() {
           <MainAnalyticsChart data={monthlyData} hasTransactions={hasTransactions} />
         </div>
         <div className="col-span-12 lg:col-span-4 flex">
-          <SavingsProgressCard stats={stats} />
+          <SavingsProgressCard stats={stats} activeGoal={activeGoal} />
         </div>
       </div>
     </div>

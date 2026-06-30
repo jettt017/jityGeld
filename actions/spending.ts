@@ -17,18 +17,18 @@ export async function getSpendingData(range: TimeRange) {
     let chartData: { name: string; amount: number }[] = [];
 
     if (range === "weekly") {
-      // Current Week: Mon to Sun
-      const day = now.getDay();
-      const diff = now.getDate() - day + (day === 0 ? -6 : 1);
+      // Current Week: Mon to Sun (UTC)
+      const day = now.getUTCDay();
+      const diff = now.getUTCDate() - day + (day === 0 ? -6 : 1);
       
-      startDate = new Date(now.getFullYear(), now.getMonth(), diff, 0, 0, 0, 0);
+      startDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), diff, 0, 0, 0, 0));
       
       // Previous Week: Mon to Sun
       prevStartDate = new Date(startDate);
-      prevStartDate.setDate(startDate.getDate() - 7);
+      prevStartDate.setUTCDate(startDate.getUTCDate() - 7);
       
       prevEndDate = new Date(startDate);
-      prevEndDate.setMilliseconds(-1); // right before current week starts
+      prevEndDate.setUTCMilliseconds(-1);
 
       // Initialize days Mon-Sun
       const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -90,9 +90,8 @@ export async function getSpendingData(range: TimeRange) {
         // Current period
         currentTotal += amount;
 
-        // Map to chartData name
         if (range === "weekly") {
-          const txDay = txDate.getDay(); // 0 is Sun, 1 is Mon...
+          const txDay = txDate.getUTCDay(); // 0 is Sun, 1 is Mon...
           const index = (txDay + 6) % 7;
           if (chartData[index]) {
             chartData[index].amount += amount;

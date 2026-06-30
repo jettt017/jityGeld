@@ -9,15 +9,16 @@ import { Target, Plus } from "lucide-react";
 
 interface SavingsProgressCardProps {
   stats: DashboardStats;
+  activeGoal: any; // Using any or specific type if imported
 }
 
-export function SavingsProgressCard({ stats }: SavingsProgressCardProps) {
-  // If the user has real savings goals/data, totalSavings is > 0
-  const hasSavingsData = stats.totalSavings > 0;
+export function SavingsProgressCard({ stats, activeGoal }: SavingsProgressCardProps) {
+  // If we have an active goal, use its data
+  const hasSavingsData = !!activeGoal;
 
-  // Real amounts if they exist
-  const targetAmount = hasSavingsData ? stats.totalSavings * 1.4 : 0;
-  const currentAmount = hasSavingsData ? stats.totalSavings : 0;
+  // Real amounts from the active goal
+  const targetAmount = hasSavingsData ? Number(activeGoal.targetAmount) : 0;
+  const currentAmount = hasSavingsData ? Number(activeGoal.currentAmount) : 0;
   const remainingAmount = Math.max(0, targetAmount - currentAmount);
   
   // Calculate percentage
@@ -33,9 +34,11 @@ export function SavingsProgressCard({ stats }: SavingsProgressCardProps) {
   return (
     <Card className="rounded-2xl border-none shadow-sm bg-card p-4 sm:p-6 flex flex-col justify-between h-full w-full min-h-[320px]">
       <div className="flex justify-between items-center shrink-0">
-        <h3 className="text-sm font-semibold text-foreground">Savings Goals Progress</h3>
+        <h3 className="text-sm font-semibold text-foreground truncate mr-2">
+          {hasSavingsData ? activeGoal.title : "Savings Goals Progress"}
+        </h3>
         {hasSavingsData && (
-          <Link href="/savings" className="text-xs font-semibold text-muted-foreground hover:underline">
+          <Link href="/savings" className="text-xs font-semibold text-muted-foreground hover:underline shrink-0">
             See More
           </Link>
         )}
