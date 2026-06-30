@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import Link from "next/link";
+import { GlobalLoading } from "@/components/global-loading";
 import { signUp } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,25 +11,26 @@ import { Wallet, Loader2 } from "lucide-react";
 
 export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
-  async function handleSubmit(formData: FormData) {
-    setLoading(true);
+  function handleSubmit(formData: FormData) {
     setError(null);
-    try {
+    startTransition(async () => {
       const result = await signUp(formData);
       if (result && !result.success) {
         setError(result.error || "Registration failed");
       }
-    } catch {
-      // redirect throws — expected
-    } finally {
-      setLoading(false);
-    }
+    });
   }
 
   return (
-    <div className="space-y-6">
+    <>
+      {isPending && (
+        <div className="fixed inset-0 z-[100] bg-background">
+          <GlobalLoading />
+        </div>
+      )}
+      <div className="space-y-6">
       {/* Logo */}
       <div className="flex flex-col items-center space-y-2">
         <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
@@ -93,8 +95,8 @@ export default function RegisterPage() {
                 className="bg-[#F8FAFC] dark:bg-zinc-900/50"
               />
             </div>
-            <Button type="submit" className="w-full h-12 rounded-xl text-xs font-bold uppercase tracking-wider mt-2" disabled={loading}>
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            <Button type="submit" className="w-full h-12 rounded-xl text-xs font-bold uppercase tracking-wider mt-2" disabled={isPending}>
+              {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Create Account
             </Button>
           </form>
@@ -109,5 +111,6 @@ export default function RegisterPage() {
         </CardFooter>
       </Card>
     </div>
+    </>
   );
 }
