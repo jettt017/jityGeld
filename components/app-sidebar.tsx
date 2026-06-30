@@ -10,6 +10,7 @@ import {
   BarChart3,
   Settings,
   Wallet,
+  CalendarDays,
 } from "lucide-react";
 import {
   Sidebar,
@@ -30,6 +31,7 @@ const navItems = [
   { title: "Categories", href: "/categories", icon: Tag },
   { title: "Savings Goals", href: "/savings", icon: PiggyBank },
   { title: "Analytics", href: "/analytics", icon: BarChart3 },
+  { title: "Calendar", href: "/calendar", icon: CalendarDays },
   { title: "Settings", href: "/settings", icon: Settings },
 ];
 
