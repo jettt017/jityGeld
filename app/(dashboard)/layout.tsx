@@ -1,11 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { Footer } from "@/components/footer";
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import { GlobalLoading } from "@/components/global-loading";
 
-export default async function DashboardLayout({
+async function DashboardLayoutInner({
   children,
 }: {
   children: React.ReactNode;
@@ -20,7 +22,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background animate-in fade-in duration-500">
       <DashboardHeader
         user={{
           email: user.email || "",
@@ -44,5 +46,17 @@ export default async function DashboardLayout({
         <Plus className="h-6 w-6" />
       </Link>
     </div>
+  );
+}
+
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <Suspense fallback={<GlobalLoading />}>
+      <DashboardLayoutInner>{children}</DashboardLayoutInner>
+    </Suspense>
   );
 }
