@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { serializeData } from "@/lib/utils";
 
 type GetTransactionsParams = {
   userId: string;
@@ -62,7 +63,7 @@ export async function getTransactions({
   ]);
 
   return {
-    transactions,
+    transactions: serializeData(transactions),
     total,
     totalPages: Math.ceil(total / limit),
     currentPage: page,
@@ -72,8 +73,9 @@ export async function getTransactions({
 }
 
 export async function getTransactionById(id: string, userId: string) {
-  return prisma.transaction.findFirst({
+  const tx = await prisma.transaction.findFirst({
     where: { id, userId },
     include: { category: true },
   });
+  return serializeData(tx);
 }
