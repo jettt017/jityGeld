@@ -37,7 +37,7 @@ export default async function DashboardPage() {
   const hasTransactions = stats.totalIncome > 0 || stats.totalExpense > 0;
 
   return (
-    <div className="space-y-4 pb-8 animate-fade-in">
+    <div className="space-y-6 pb-8 animate-fade-in">
       {/* Greeting */}
       <div>
         <h1 className="text-2xl font-extrabold tracking-tight text-foreground">
@@ -52,7 +52,7 @@ export default async function DashboardPage() {
       <JityGeldInsightsCard />
 
       {/* Row 1: Total Balance | Spending Chart | Transactions — equal fixed-height columns */}
-      <div className="grid grid-cols-12 gap-4">
+      <div className="grid grid-cols-12 gap-6">
         <div className="col-span-12 lg:col-span-4 h-[320px]">
           <TotalBalanceCard stats={stats} userName={userName} />
         </div>
@@ -67,7 +67,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Row 2: Main Analytics Chart | Savings Progress — equal heights layout */}
-      <div className="grid grid-cols-12 gap-4 items-stretch">
+      <div className="grid grid-cols-12 gap-6 items-stretch">
         <div className="col-span-12 lg:col-span-8 flex">
           <MainAnalyticsChart data={monthlyData} hasTransactions={hasTransactions} />
         </div>
