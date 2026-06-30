@@ -283,7 +283,7 @@ export function TransactionsClient({
                   : "Record a new income or expense"}
               </DialogDescription>
             </DialogHeader>
-            <form action={handleSubmit} className="space-y-4">
+            <form key={editingTx?.id || "new"} action={handleSubmit} className="space-y-4">
               {error && (
                 <div className="rounded-xl bg-destructive/10 p-3 text-xs text-destructive font-medium">
                   {error}
