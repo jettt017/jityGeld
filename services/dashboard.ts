@@ -126,16 +126,32 @@ export async function getRecentTransactions(userId: string, limit = 5) {
 }
 
 export async function getActiveSavingsGoal(userId: string) {
+  const dbUrl = process.env.DATABASE_URL || "";
+  const maskedUrl = dbUrl ? dbUrl.replace(/:[^:@]*@/, ":***@") : "MISSING";
+  
+  console.log("[Production Debug] getActiveSavingsGoal invoked.");
+  console.log(" - User ID:", userId);
+  console.log(" - DATABASE_URL (masked):", maskedUrl);
+  
   const goal = await prisma.savingsGoal.findFirst({
     where: { userId },
     orderBy: { createdAt: "desc" },
   });
+  
+  console.log(" - Raw DB result:", goal ? "Found Goal" : "null");
+  
+  if (!goal) {
+    console.log("[Production Debug] Returning null");
+    return null;
+  }
 
-  if (!goal) return null;
-
-  return {
+  const processed = {
     ...goal,
     targetAmount: Number(goal.targetAmount),
     currentAmount: Number(goal.currentAmount),
   };
+  
+  console.log("[Production Debug] Processed response Target:", processed.targetAmount);
+
+  return processed;
 }
