@@ -112,12 +112,17 @@ export async function getExpenseByCategory(userId: string): Promise<CategoryExpe
 }
 
 export async function getRecentTransactions(userId: string, limit = 5) {
-  return prisma.transaction.findMany({
+  const transactions = await prisma.transaction.findMany({
     where: { userId },
     include: { category: { select: { name: true, type: true } } },
     orderBy: { transactionDate: "desc" },
     take: limit,
   });
+
+  return transactions.map(tx => ({
+    ...tx,
+    amount: Number(tx.amount),
+  }));
 }
 
 export async function getActiveSavingsGoal(userId: string) {
