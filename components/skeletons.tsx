@@ -564,3 +564,105 @@ export function SettingsSkeleton() {
     </div>
   );
 }
+
+/* ============================================================================
+   7. CALENDAR SKELETON
+   ============================================================================ */
+export function CalendarSkeleton() {
+  return (
+    <div className="space-y-6" aria-busy="true">
+      {/* Title block */}
+      <div className="space-y-1.5">
+        <Skeleton className="h-8 w-44 rounded-lg" />
+        <Skeleton className="h-4.5 w-64 rounded-lg" />
+      </div>
+
+      <div className="flex flex-col gap-5">
+        {/* Summary Cards */}
+        <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Card key={i} className="rounded-2xl border-none shadow-sm bg-card p-4 flex flex-col justify-between" style={{ height: "100px" }}>
+              <div className="flex justify-between items-center mb-2">
+                <Skeleton className="h-3 w-20 rounded-md" />
+                <Skeleton className="h-6 w-6 rounded-lg" />
+              </div>
+              <Skeleton className="h-6 w-24 rounded-lg mt-2" />
+            </Card>
+          ))}
+        </div>
+
+        {/* Header (Nav + filter) */}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-2">
+            <Skeleton className="h-8 w-8 rounded-lg" />
+            <Skeleton className="h-6 w-32 rounded-lg mx-2" />
+            <Skeleton className="h-8 w-8 rounded-lg" />
+            <Skeleton className="h-8 w-16 rounded-lg" />
+          </div>
+          <div className="flex items-center gap-2">
+            <Skeleton className="h-8 w-32 rounded-lg" />
+          </div>
+        </div>
+
+        {/* Calendar Body */}
+        <div className="flex gap-4">
+          {/* Grid */}
+          <div className="flex-1 min-w-0">
+            <Card className="rounded-2xl border border-border/50 shadow-sm bg-card p-3 sm:p-4">
+              {/* Weekday headers */}
+              <div className="grid grid-cols-7 gap-1 mb-1">
+                {Array.from({ length: 7 }).map((_, i) => (
+                  <Skeleton key={i} className="h-4 w-8 mx-auto rounded-sm mb-1" />
+                ))}
+              </div>
+              {/* Grid cells */}
+              <div className="grid grid-cols-7 gap-1">
+                {Array.from({ length: 35 }).map((_, i) => (
+                  <Skeleton key={i} className="aspect-square rounded-[14px]" />
+                ))}
+              </div>
+            </Card>
+          </div>
+
+          {/* Desktop side panel */}
+          <div className="hidden lg:block w-72 xl:w-80 shrink-0">
+            <Card className="rounded-2xl border border-border/50 shadow-sm bg-card h-full min-h-[500px] flex flex-col">
+              {/* Header */}
+              <div className="p-4 border-b border-border/40">
+                <Skeleton className="h-3 w-20 rounded-md mb-2" />
+                <Skeleton className="h-5 w-32 rounded-lg" />
+                <div className="flex gap-2 mt-2">
+                  <Skeleton className="h-3 w-12 rounded-md" />
+                  <Skeleton className="h-3 w-12 rounded-md" />
+                </div>
+              </div>
+              {/* Transaction list */}
+              <div className="p-4 space-y-3 flex-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div key={i} className="flex gap-2.5">
+                    <Skeleton className="h-7 w-7 rounded-lg shrink-0 mt-0.5" />
+                    <div className="space-y-1.5 flex-1">
+                      <div className="flex justify-between items-center">
+                        <Skeleton className="h-3 w-20 rounded-md" />
+                        <Skeleton className="h-3 w-12 rounded-md" />
+                      </div>
+                      <Skeleton className="h-2 w-24 rounded-sm" />
+                      <div className="flex items-center gap-1 mt-1">
+                        <Skeleton className="h-2 w-2 rounded-full" />
+                        <Skeleton className="h-2 w-8 rounded-sm" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {/* Add transaction button placeholder */}
+              <div className="p-4 border-t border-border/40 mt-auto">
+                <Skeleton className="h-9 w-full rounded-xl" />
+              </div>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
