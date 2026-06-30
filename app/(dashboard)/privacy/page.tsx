@@ -92,7 +92,7 @@ export default function PrivacyPage() {
           <p className="text-sm text-muted-foreground">
             Need help or have questions about your privacy?
             <br />
-            Contact us at: <a href="mailto:support@jitygeld.com" className="text-primary hover:underline font-medium">support@jitygeld.com</a>
+            Contact us at: <a href="mailto:gamely017@gmail.com" className="text-primary hover:underline font-medium">gamely017@gmail.com</a>
           </p>
         </section>
       </Card>
