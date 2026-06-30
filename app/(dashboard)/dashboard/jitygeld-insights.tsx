@@ -28,11 +28,11 @@ const insights = [
 export function JityGeldInsightsCard() {
   return (
     <Card
-      className="rounded-2xl border border-blue-500/10 dark:border-blue-500/5 shadow-sm bg-[#dbeafe] dark:bg-blue-950/20 p-5 relative overflow-hidden"
+      className="bg-[#dbeafe] dark:bg-card p-5 relative overflow-hidden"
       style={{ minHeight: 180 }}
     >
       {/* Decorative background blobs */}
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-64 opacity-[0.12] dark:opacity-[0.05]">
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-64 opacity-[0.12] dark:opacity-[0.015]">
         <svg viewBox="0 0 200 200" className="h-full w-full text-blue-900 dark:text-blue-400">
           <circle cx="160" cy="40"  r="70" fill="none" stroke="currentColor" strokeWidth="1" />
           <circle cx="190" cy="100" r="55" fill="none" stroke="currentColor" strokeWidth="1" />
@@ -44,7 +44,7 @@ export function JityGeldInsightsCard() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 rounded-lg bg-blue-800/12 dark:bg-blue-500/10 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-blue-800 dark:text-blue-400">
+            <span className="inline-flex items-center gap-1.5 rounded-lg bg-blue-800/12 dark:bg-transparent dark:border dark:border-blue-500/30 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-blue-800 dark:text-blue-400">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
               JityGeld Insights
             </span>
@@ -65,7 +65,7 @@ export function JityGeldInsightsCard() {
           {insights.map(({ icon: Icon, iconBg, label, body }) => (
             <div
               key={label}
-              className="flex flex-col gap-2 rounded-xl bg-white/55 dark:bg-zinc-900/40 border border-blue-900/[0.06] dark:border-blue-500/10 p-3.5 backdrop-blur-sm"
+              className="flex flex-col gap-2 rounded-xl bg-white/55 dark:bg-muted/30 border border-blue-900/[0.06] dark:border-blue-500/5 p-3.5 backdrop-blur-sm"
             >
               <div className="flex items-center gap-2">
                 <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-xl ${iconBg}`}>
