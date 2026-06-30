@@ -1,14 +1,17 @@
 import { prisma } from "@/lib/prisma";
+import { serializeData } from "@/lib/utils";
 
 export async function getSavingsGoals(userId: string) {
-  return prisma.savingsGoal.findMany({
+  const goals = await prisma.savingsGoal.findMany({
     where: { userId },
     orderBy: { createdAt: "desc" },
   });
+  return serializeData(goals);
 }
 
 export async function getSavingsGoalById(id: string, userId: string) {
-  return prisma.savingsGoal.findFirst({
+  const goal = await prisma.savingsGoal.findFirst({
     where: { id, userId },
   });
+  return serializeData(goal);
 }
