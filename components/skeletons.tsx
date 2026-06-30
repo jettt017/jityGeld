@@ -666,3 +666,82 @@ export function CalendarSkeleton() {
     </div>
   );
 }
+
+/* ============================================================================
+   8. LEGAL SKELETON (Privacy / Terms)
+   ============================================================================ */
+export function LegalSkeleton() {
+  return (
+    <div className="space-y-6 max-w-4xl mx-auto" aria-busy="true">
+      <div className="space-y-1.5">
+        <Skeleton className="h-9 w-48 rounded-lg" />
+        <Skeleton className="h-4.5 w-40 rounded-lg" />
+      </div>
+
+      <Card className="p-6 md:p-8 rounded-2xl border-border/50 shadow-sm bg-card space-y-8">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Skeleton className="h-9 w-9 rounded-lg" />
+              <Skeleton className="h-6 w-48 rounded-md" />
+            </div>
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-full rounded-md" />
+              <Skeleton className="h-4 w-[90%] rounded-md" />
+              <Skeleton className="h-4 w-[95%] rounded-md" />
+            </div>
+          </div>
+        ))}
+      </Card>
+    </div>
+  );
+}
+
+/* ============================================================================
+   9. SUPPORT SKELETON
+   ============================================================================ */
+export function SupportSkeleton() {
+  return (
+    <div className="space-y-6 max-w-4xl mx-auto" aria-busy="true">
+      <div className="space-y-1.5">
+        <Skeleton className="h-9 w-56 rounded-lg" />
+        <Skeleton className="h-4.5 w-64 rounded-lg" />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="md:col-span-2">
+          <Card className="p-6 md:p-8 rounded-2xl border-border/50 shadow-sm bg-card h-full">
+            <div className="flex items-center gap-2 mb-6">
+              <Skeleton className="h-9 w-9 rounded-lg" />
+              <Skeleton className="h-6 w-48 rounded-md" />
+            </div>
+            
+            <div className="space-y-1">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="py-4 border-b border-border/60 last:border-0 flex justify-between items-center">
+                  <Skeleton className="h-5 w-[70%] rounded-md" />
+                  <Skeleton className="h-4 w-4 rounded-md" />
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
+
+        <div className="md:col-span-1">
+          <Card className="p-6 rounded-2xl border-border/50 shadow-sm bg-card h-full flex flex-col justify-center items-center space-y-6">
+            <Skeleton className="h-16 w-16 rounded-full" />
+            <div className="w-full space-y-3 flex flex-col items-center text-center">
+              <Skeleton className="h-6 w-32 rounded-md" />
+              <Skeleton className="h-4 w-48 rounded-md" />
+              <Skeleton className="h-4 w-40 rounded-md" />
+              <Skeleton className="h-10 w-full rounded-xl" />
+            </div>
+            <div className="pt-4 border-t border-border/60 w-full flex justify-center">
+              <Skeleton className="h-4 w-40 rounded-md" />
+            </div>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}
