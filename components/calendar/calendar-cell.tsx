@@ -28,29 +28,21 @@ export function CalendarCell({
   // Compute visible income/expense based on filter
   let showIncome = false;
   let showExpense = false;
-  let income = 0;
-  let expense = 0;
+  let txCount = 0;
 
   if (dayData && isCurrentMonth) {
-    if (filter === "ALL") {
-      income = dayData.income;
-      expense = dayData.expense;
-      showIncome = income > 0;
-      showExpense = expense > 0;
-    } else if (filter === "INCOME") {
-      income = dayData.income;
-      showIncome = income > 0;
-    } else if (filter === "EXPENSE") {
-      expense = dayData.expense;
-      showExpense = expense > 0;
-    } else if (filter.startsWith("CAT:")) {
+    let visibleTxs = dayData.transactions;
+
+    if (filter === "INCOME") visibleTxs = visibleTxs.filter((t) => t.type === "INCOME");
+    else if (filter === "EXPENSE") visibleTxs = visibleTxs.filter((t) => t.type === "EXPENSE");
+    else if (filter.startsWith("CAT:")) {
       const catId = filter.slice(4);
-      const catTxs = dayData.transactions.filter((t) => t.categoryId === catId);
-      income = catTxs.filter((t) => t.type === "INCOME").reduce((s, t) => s + t.amount, 0);
-      expense = catTxs.filter((t) => t.type === "EXPENSE").reduce((s, t) => s + t.amount, 0);
-      showIncome = income > 0;
-      showExpense = expense > 0;
+      visibleTxs = visibleTxs.filter((t) => t.categoryId === catId);
     }
+
+    txCount = visibleTxs.length;
+    showIncome = visibleTxs.some(t => t.type === "INCOME");
+    showExpense = visibleTxs.some(t => t.type === "EXPENSE");
   }
 
   const hasActivity = showIncome || showExpense;
@@ -60,52 +52,67 @@ export function CalendarCell({
       type="button"
       onClick={onClick}
       className={cn(
-        "group relative flex flex-col items-start p-1.5 sm:p-2 min-h-[72px] sm:min-h-[90px] rounded-xl border text-left transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-primary/20",
+        "group relative flex flex-col p-2 aspect-square rounded-[14px] border border-border/40 text-left transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20",
         // base
-        isCurrentMonth
-          ? "bg-card border-border/40 hover:border-primary/30 hover:bg-primary/5"
-          : "bg-muted/20 border-border/20 opacity-50",
+        isCurrentMonth ? "bg-card hover:shadow-sm hover:border-border/80" : "bg-muted/10 border-transparent opacity-40",
         // selected
-        isSelected && isCurrentMonth && "border-primary/60 bg-primary/8 ring-2 ring-primary/20",
-        // today
-        today && "border-primary/40"
+        isSelected && isCurrentMonth && "bg-primary border-primary text-primary-foreground hover:bg-primary/90",
+        // not selected but today
+        !isSelected && today && "border-primary/50"
       )}
     >
-      {/* Date number */}
-      <div
-        className={cn(
-          "flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold transition-colors",
-          today
-            ? "bg-primary text-primary-foreground"
-            : isSelected
-            ? "text-primary"
-            : isCurrentMonth
-            ? "text-foreground"
-            : "text-muted-foreground/40"
+      <div className="flex w-full items-start justify-between">
+        {/* Date number */}
+        <span
+          className={cn(
+            "text-sm font-semibold tracking-tight transition-colors",
+            isSelected
+              ? "text-primary-foreground"
+              : today
+              ? "text-primary"
+              : isCurrentMonth
+              ? "text-foreground"
+              : "text-muted-foreground"
+          )}
+        >
+          {format(date, "d")}
+        </span>
+
+        {/* Multiple transactions badge */}
+        {hasActivity && txCount > 2 && (
+          <span
+            className={cn(
+              "text-[9px] font-bold px-1 rounded-sm",
+              isSelected
+                ? "bg-primary-foreground/20 text-primary-foreground"
+                : "bg-muted text-muted-foreground"
+            )}
+          >
+            +{txCount}
+          </span>
         )}
-      >
-        {format(date, "d")}
       </div>
 
-      {/* Financial indicators */}
+      {/* Financial indicators (dots) */}
       {hasActivity && (
-        <div className="mt-1 flex flex-col gap-0.5 w-full min-w-0">
+        <div className="mt-auto flex items-center gap-1">
           {showIncome && (
-            <span className="truncate text-[9px] sm:text-[10px] font-bold text-emerald-600 dark:text-emerald-400 leading-none">
-              +{formatCurrency(income)}
-            </span>
+            <div
+              className={cn(
+                "h-1.5 w-1.5 rounded-full",
+                isSelected ? "bg-primary-foreground" : "bg-emerald-500"
+              )}
+            />
           )}
           {showExpense && (
-            <span className="truncate text-[9px] sm:text-[10px] font-bold text-rose-500 leading-none">
-              -{formatCurrency(expense)}
-            </span>
+            <div
+              className={cn(
+                "h-1.5 w-1.5 rounded-full",
+                isSelected ? "bg-primary-foreground/70" : "bg-rose-500"
+              )}
+            />
           )}
         </div>
-      )}
-
-      {/* Activity dot (mobile fallback) */}
-      {hasActivity && (
-        <div className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full bg-primary opacity-60 sm:hidden" />
       )}
     </button>
   );
