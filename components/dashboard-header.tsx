@@ -19,6 +19,7 @@ import {
   Settings,
   LogOut,
   Plus,
+  CalendarDays,
 } from "lucide-react";
 
 interface DashboardHeaderProps {
@@ -33,6 +34,7 @@ const navItems = [
   { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { title: "Transactions", href: "/transactions", icon: ArrowLeftRight },
   { title: "Analytics", href: "/analytics", icon: BarChart3 },
+  { title: "Calendar", href: "/calendar", icon: CalendarDays },
   { title: "Savings", href: "/savings", icon: PiggyBank },
   { title: "Settings", href: "/settings", icon: Settings },
 ];
