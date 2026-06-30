@@ -121,8 +121,16 @@ export async function getRecentTransactions(userId: string, limit = 5) {
 }
 
 export async function getActiveSavingsGoal(userId: string) {
-  return prisma.savingsGoal.findFirst({
+  const goal = await prisma.savingsGoal.findFirst({
     where: { userId },
     orderBy: { createdAt: "desc" },
   });
+
+  if (!goal) return null;
+
+  return {
+    ...goal,
+    targetAmount: Number(goal.targetAmount),
+    currentAmount: Number(goal.currentAmount),
+  };
 }
