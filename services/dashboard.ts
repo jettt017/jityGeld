@@ -1,3 +1,4 @@
+// Added getActiveSavingsGoal to fetch the active savings goal for the dashboard
 import { prisma } from "@/lib/prisma";
 import type { DashboardStats, MonthlyData, CategoryExpense } from "@/types";
 import { CHART_COLORS } from "@/utils";
@@ -116,5 +117,12 @@ export async function getRecentTransactions(userId: string, limit = 5) {
     include: { category: { select: { name: true, type: true } } },
     orderBy: { transactionDate: "desc" },
     take: limit,
+  });
+}
+
+export async function getActiveSavingsGoal(userId: string) {
+  return prisma.savingsGoal.findFirst({
+    where: { userId },
+    orderBy: { createdAt: "desc" },
   });
 }
