@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { DashboardHeader } from "@/components/dashboard-header";
+import { Footer } from "@/components/footer";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
@@ -32,6 +33,8 @@ export default async function DashboardLayout({
       <main className="flex-1 overflow-auto p-6 md:p-8 max-w-7xl mx-auto w-full">
         {children}
       </main>
+
+      <Footer />
 
       {/* Floating Action Button (FAB) on Mobile */}
       <Link
