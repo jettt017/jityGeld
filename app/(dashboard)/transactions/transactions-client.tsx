@@ -1,6 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { GlobalLoading } from "@/components/global-loading";
+
+import { useState, useEffect, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Plus,
@@ -122,10 +124,14 @@ export function TransactionsClient({
     router.push(`/transactions?${params.toString()}`);
   }
 
+  const [isPending, startTransition] = useTransition();
+
   function goToPage(page: number) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", String(page));
-    router.push(`/transactions?${params.toString()}`);
+    startTransition(() => {
+      router.push(`/transactions?${params.toString()}`, { scroll: false });
+    });
   }
 
   async function handleSubmit(formData: FormData) {
@@ -554,7 +560,8 @@ export function TransactionsClient({
             <Button
               variant="outline"
               size="sm"
-              disabled={currentPage <= 1}
+              disabled={currentPage <= 1 || isPending}
+              className={isPending ? "opacity-50 cursor-not-allowed" : ""}
               onClick={() => goToPage(currentPage - 1)}
             >
               <ChevronLeft className="h-4 w-4" />
@@ -565,12 +572,19 @@ export function TransactionsClient({
             <Button
               variant="outline"
               size="sm"
-              disabled={currentPage >= totalPages}
+              disabled={currentPage >= totalPages || isPending}
+              className={isPending ? "opacity-50 cursor-not-allowed" : ""}
               onClick={() => goToPage(currentPage + 1)}
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
+        </div>
+      )}
+
+      {isPending && (
+        <div className="fixed inset-0 z-[100] animate-in fade-in duration-200">
+          <GlobalLoading />
         </div>
       )}
 
