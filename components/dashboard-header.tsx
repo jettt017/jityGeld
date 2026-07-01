@@ -71,7 +71,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-[color:var(--border-premium)] bg-card/75 backdrop-blur-md px-4 sm:px-6 h-16 flex items-center justify-between transition-colors duration-[250ms] ease-out">
+      <header className="sticky top-0 z-50 w-full border-b border-[color:var(--border-premium)] bg-background/80 backdrop-blur-xl px-4 sm:px-6 h-16 flex items-center justify-between transition-colors duration-200 ease-out">
         <div className="flex items-center gap-4 lg:gap-8">
           {/* Hamburger button visible below 1024px */}
           <button
