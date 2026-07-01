@@ -4,6 +4,12 @@ import { useState } from "react";
 import { ChevronDown, FileSpreadsheet, FileText, FileDown } from "lucide-react";
 import { ExportDialog } from "./export-dialog";
 import type { ExportFormat } from "@/lib/export";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 interface Category {
   id: string;
@@ -46,44 +52,40 @@ export function ExportButton({ categories }: ExportButtonProps) {
 
   return (
     <>
-      {/* Trigger + dropdown wrapper */}
-      <div className="relative">
-        <button
-          type="button"
-          id="export-trigger"
-          onClick={() => setMenuOpen((prev) => !prev)}
-          onBlur={() => setTimeout(() => setMenuOpen(false), 150)}
-          className="inline-flex items-center gap-1.5 h-9 rounded-[10px] border border-border/50 bg-card px-[14px] text-[14px] font-[500] text-foreground/80 shadow-sm transition-all duration-150 hover:bg-muted/60 hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 select-none"
+      <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
+        <DropdownMenuTrigger
+          render={
+            <button
+              type="button"
+              id="export-trigger"
+              className="inline-flex items-center gap-1.5 h-9 rounded-[10px] border border-[color:var(--border-premium)] bg-card px-[14px] text-[14px] font-[500] text-foreground/80 shadow-[var(--shadow-premium)] transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[var(--shadow-premium-hover)] hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 select-none"
+            >
+              Export
+              <ChevronDown
+                className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${
+                  menuOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+          }
+        />
+        <DropdownMenuContent 
+          align="end" 
+          sideOffset={8}
+          className="w-[190px] rounded-2xl border-[color:var(--border-premium)] shadow-xl animate-in fade-in zoom-in-95 duration-200 ease-out p-1.5"
         >
-          Export
-          <ChevronDown
-            className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${
-              menuOpen ? "rotate-180" : ""
-            }`}
-          />
-        </button>
-
-        {menuOpen && (
-          <div
-            id="export-dropdown"
-            className="absolute right-0 z-50 mt-1.5 w-[190px] overflow-hidden rounded-xl border border-border/50 bg-popover shadow-xl animate-in fade-in-0 zoom-in-95 duration-100"
-          >
-            <div className="p-1.5 flex flex-col gap-0.5">
-              {formatItems.map(({ format, label, icon }) => (
-                <button
-                  key={format}
-                  type="button"
-                  onMouseDown={() => handleFormatSelect(format)}
-                  className="flex items-center gap-2.5 w-full rounded-lg px-3 py-2 text-left text-[13px] font-[500] text-foreground/80 transition-colors duration-150 hover:bg-primary/8 hover:text-foreground focus:outline-none"
-                >
-                  {icon}
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+          {formatItems.map(({ format, label, icon }) => (
+            <DropdownMenuItem
+              key={format}
+              onClick={() => handleFormatSelect(format)}
+              className="flex items-center gap-2.5 w-full rounded-lg px-3 py-2 text-[13px] font-[500] text-foreground/80 transition-colors duration-150 focus:bg-primary/10 focus:text-primary cursor-pointer outline-none"
+            >
+              {icon}
+              {label}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
 
       <ExportDialog
         open={dialogOpen}
