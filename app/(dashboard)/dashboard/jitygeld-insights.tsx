@@ -54,7 +54,7 @@ export function JityGeldInsightsCard() {
           </div>
           <Link
             href="/analytics"
-            className="flex shrink-0 items-center gap-1 rounded-lg bg-blue-800 dark:bg-blue-600 hover:bg-blue-900 dark:hover:bg-blue-500 px-3 py-1 text-[10px] font-bold text-white hover:bg-blue-900 transition-colors"
+            className="flex shrink-0 items-center gap-1 rounded-lg bg-blue-800 dark:bg-primary hover:bg-blue-900 dark:hover:bg-[#1D4ED8] px-3 py-1 text-[10px] font-bold text-white transition-colors duration-200"
           >
             Explore <ArrowRight className="h-2.5 w-2.5" />
           </Link>
@@ -65,7 +65,7 @@ export function JityGeldInsightsCard() {
           {insights.map(({ icon: Icon, iconBg, label, body }) => (
             <div
               key={label}
-              className="flex flex-col gap-2 rounded-xl bg-white/55 dark:bg-muted/30 border border-blue-900/[0.06] dark:border-blue-500/5 p-3.5 backdrop-blur-sm"
+              className="flex flex-col gap-2 rounded-xl bg-white/55 dark:bg-muted border border-blue-900/[0.06] dark:border-border p-3.5 backdrop-blur-sm"
             >
               <div className="flex items-center gap-2">
                 <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-xl ${iconBg}`}>
