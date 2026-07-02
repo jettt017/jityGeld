@@ -581,6 +581,7 @@ export function TransactionsClient({
           </Table>
         </CardContent>
       </Card>
+      )}
 
       {/* Pagination */}
       {!isSearchPending && !isSearchTransitionPending && totalPages > 1 && (
