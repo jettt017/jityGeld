@@ -101,6 +101,12 @@ export function TransactionsClient({
     !!(filters.type || filters.categoryId || filters.startDate || filters.endDate)
   );
 
+  const [searchQuery, setSearchQuery] = useState(filters.search || "");
+
+  useEffect(() => {
+    setSearchQuery(filters.search || "");
+  }, [filters.search]);
+
   useEffect(() => {
     if (searchParams.get("add") === "true") {
       openCreateDialog();
@@ -248,12 +254,13 @@ export function TransactionsClient({
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search transactions..."
-              defaultValue={filters.search || ""}
+              value={searchQuery}
               className="pl-9 rounded-xl bg-slate-50 dark:bg-zinc-900/50 border border-border/40 focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground transition-all"
               onChange={(e) => {
-                const value = e.target.value;
-                if (value.length === 0 || value.length >= 2) {
-                  updateSearchParams({ search: value || undefined });
+                const val = e.target.value;
+                setSearchQuery(val);
+                if (val.length === 0 || val.length >= 2) {
+                  updateSearchParams({ search: val || undefined });
                 }
               }}
             />
