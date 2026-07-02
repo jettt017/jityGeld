@@ -239,42 +239,48 @@ export function TransactionsSkeleton() {
       </Card>
 
       {/* Transactions Table Card */}
-      <Card className="rounded-2xl border-none shadow-sm bg-card p-5 overflow-hidden">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead><Skeleton className="h-4 w-16 rounded-md" /></TableHead>
-              <TableHead><Skeleton className="h-4 w-28 rounded-md" /></TableHead>
-              <TableHead><Skeleton className="h-4 w-20 rounded-md" /></TableHead>
-              <TableHead><Skeleton className="h-4 w-12 rounded-md" /></TableHead>
-              <TableHead className="text-right"><Skeleton className="h-4 w-16 ml-auto rounded-md" /></TableHead>
-              <TableHead className="text-right"><Skeleton className="h-4 w-12 ml-auto rounded-md" /></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {Array.from({ length: 8 }).map((_, i) => (
-              <TableRow key={i}>
-                <TableCell><Skeleton className="h-4 w-20 rounded-md" /></TableCell>
-                <TableCell><Skeleton className="h-4 w-36 rounded-md" /></TableCell>
-                <TableCell><Skeleton className="h-4.5 w-24 rounded-full" /></TableCell>
-                <TableCell><Skeleton className="h-4 w-12 rounded-md" /></TableCell>
-                <TableCell className="text-right"><Skeleton className="h-4 w-16 ml-auto rounded-md" /></TableCell>
-                <TableCell className="text-right flex justify-end gap-1.5"><Skeleton className="h-7 w-7 rounded-lg" /><Skeleton className="h-7 w-7 rounded-lg" /></TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-
-        {/* Fake Table Footer pagination */}
-        <div className="flex justify-between items-center mt-5 pt-3 border-t">
-          <Skeleton className="h-4 w-24 rounded-md" />
-          <div className="flex gap-2">
-            <Skeleton className="h-8 w-8 rounded-lg" />
-            <Skeleton className="h-8 w-8 rounded-lg" />
-          </div>
-        </div>
-      </Card>
+      <TransactionsTableSkeleton />
     </div>
+  );
+}
+
+export function TransactionsTableSkeleton() {
+  return (
+    <Card className="rounded-2xl border-none shadow-sm bg-card p-5 overflow-hidden w-full">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead><Skeleton className="h-4 w-16 rounded-md" /></TableHead>
+            <TableHead><Skeleton className="h-4 w-28 rounded-md" /></TableHead>
+            <TableHead><Skeleton className="h-4 w-20 rounded-md" /></TableHead>
+            <TableHead><Skeleton className="h-4 w-12 rounded-md" /></TableHead>
+            <TableHead className="text-right"><Skeleton className="h-4 w-16 ml-auto rounded-md" /></TableHead>
+            <TableHead className="text-right"><Skeleton className="h-4 w-12 ml-auto rounded-md" /></TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {Array.from({ length: 8 }).map((_, i) => (
+            <TableRow key={i}>
+              <TableCell><Skeleton className="h-4 w-20 rounded-md" /></TableCell>
+              <TableCell><Skeleton className="h-4 w-36 rounded-md" /></TableCell>
+              <TableCell><Skeleton className="h-4.5 w-24 rounded-full" /></TableCell>
+              <TableCell><Skeleton className="h-4 w-12 rounded-md" /></TableCell>
+              <TableCell className="text-right"><Skeleton className="h-4 w-16 ml-auto rounded-md" /></TableCell>
+              <TableCell className="text-right flex justify-end gap-1.5"><Skeleton className="h-7 w-7 rounded-lg" /><Skeleton className="h-7 w-7 rounded-lg" /></TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+
+      {/* Fake Table Footer pagination */}
+      <div className="flex justify-between items-center mt-5 pt-3 border-t">
+        <Skeleton className="h-4 w-24 rounded-md" />
+        <div className="flex gap-2">
+          <Skeleton className="h-8 w-8 rounded-lg" />
+          <Skeleton className="h-8 w-8 rounded-lg" />
+        </div>
+      </div>
+    </Card>
   );
 }
 
