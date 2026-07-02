@@ -38,7 +38,6 @@ const faqs = [
 export default function SupportPage() {
   return (
     <div className="space-y-6 max-w-4xl mx-auto animate-in fade-in duration-500">
-      <HelpCenterNav current="/support" />
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
           Support Center
@@ -46,6 +45,9 @@ export default function SupportPage() {
         <p className="text-sm text-muted-foreground mt-1">
           Find answers to common questions or reach out to our team.
         </p>
+        <div className="mt-5">
+          <HelpCenterNav current="/support" />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
