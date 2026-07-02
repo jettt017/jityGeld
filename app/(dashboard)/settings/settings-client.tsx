@@ -15,6 +15,7 @@ import {
   Loader2,
   Check,
   Coins,
+  Trash2,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ import { createClient } from "@/lib/supabase/client";
 import { updateProfile } from "@/actions/profile";
 import imageCompression from "browser-image-compression";
 import { useRouter } from "next/navigation";
+import { DeleteAccountDialog } from "@/components/delete-account-dialog";
 
 interface SettingsClientProps {
   user: {
@@ -59,6 +61,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.location.hash === "#profile-settings") {
@@ -174,7 +177,8 @@ export function SettingsClient({ user }: SettingsClientProps) {
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 animate-fade-in">
+    <>
+      <div className="grid gap-6 md:grid-cols-2 animate-fade-in">
       {/* Profile & Preferences Settings Card */}
       <Card id="profile-settings" className="rounded-2xl border-none shadow-sm bg-card p-6 flex flex-col justify-between">
         <div>
@@ -343,14 +347,14 @@ export function SettingsClient({ user }: SettingsClientProps) {
 
         {/* Danger Zone / Session Settings */}
         <Card className="rounded-2xl border-none shadow-sm bg-card p-6">
-          <CardHeader className="px-0 pt-0 pb-6">
+          <CardHeader className="px-0 pt-0 pb-4">
             <CardTitle className="text-base font-extrabold text-destructive flex items-center gap-2">
               <ShieldAlert className="h-5 w-5 text-destructive" />
               Account Actions
             </CardTitle>
             <CardDescription className="text-xs text-muted-foreground">Manage your session settings</CardDescription>
           </CardHeader>
-          <CardContent className="p-0 space-y-4">
+          <CardContent className="p-0 space-y-3">
             {user.createdAt && (
               <div className="flex items-center gap-3 text-xs bg-muted/20 p-3 rounded-xl border border-border/40">
                 <Calendar className="h-4 w-4 text-primary" />
@@ -360,7 +364,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
                 </div>
               </div>
             )}
-            
+
             <Button
               variant="destructive"
               onClick={() => signOut()}
@@ -369,9 +373,52 @@ export function SettingsClient({ user }: SettingsClientProps) {
               <LogOut className="h-4 w-4" />
               Sign Out
             </Button>
+
+            {/* ─── Delete Account / Danger Zone ─── */}
+            <div className="rounded-2xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/40 dark:bg-rose-950/20 p-4 space-y-3">
+              <div className="flex items-start gap-2.5">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-rose-100 dark:bg-rose-900/40">
+                  <Trash2 className="h-3.5 w-3.5 text-rose-600 dark:text-rose-400" />
+                </div>
+                <div>
+                  <p className="text-xs font-extrabold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Danger Zone</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">
+                    Permanently delete your account and all associated data.
+                    This action cannot be undone.
+                  </p>
+                </div>
+              </div>
+              {/* Outlined destructive button — red text/border by default, fills on hover */}
+              <button
+                type="button"
+                onClick={() => setDeleteDialogOpen(true)}
+                className="
+                  w-full h-10 rounded-full px-4
+                  inline-flex items-center justify-center gap-1.5
+                  text-xs font-bold uppercase tracking-wider
+                  border-2 border-rose-500 dark:border-rose-600
+                  text-rose-600 dark:text-rose-400
+                  bg-transparent
+                  transition-all duration-200
+                  hover:bg-rose-600 hover:text-white hover:border-rose-600 hover:shadow-md
+                  active:bg-rose-700 active:border-rose-700
+                  disabled:opacity-50 disabled:cursor-not-allowed
+                "
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+                Delete Account
+              </button>
+            </div>
           </CardContent>
         </Card>
+
       </div>
     </div>
+
+    <DeleteAccountDialog
+      open={deleteDialogOpen}
+      onOpenChange={setDeleteDialogOpen}
+    />
+  </>
   );
 }
