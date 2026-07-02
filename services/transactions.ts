@@ -23,24 +23,30 @@ export async function getTransactions({
   endDate,
 }: GetTransactionsParams) {
   const where: Record<string, unknown> = { userId };
+  const whereWithoutSearch: Record<string, unknown> = { userId };
 
-  if (search) {
-    where.description = { contains: search, mode: "insensitive" };
-  }
   if (type) {
     where.type = type;
+    whereWithoutSearch.type = type;
   }
   if (categoryId) {
     where.categoryId = categoryId;
+    whereWithoutSearch.categoryId = categoryId;
   }
   if (startDate || endDate) {
-    where.transactionDate = {};
+    const dateRange: Record<string, unknown> = {};
     if (startDate) {
-      (where.transactionDate as Record<string, unknown>).gte = new Date(startDate);
+      dateRange.gte = new Date(startDate);
     }
     if (endDate) {
-      (where.transactionDate as Record<string, unknown>).lte = new Date(endDate);
+      dateRange.lte = new Date(endDate);
     }
+    where.transactionDate = dateRange;
+    whereWithoutSearch.transactionDate = dateRange;
+  }
+
+  if (search) {
+    where.description = { contains: search, mode: "insensitive" };
   }
 
   const [transactions, total, incomeSum, expenseSum] = await Promise.all([
@@ -53,11 +59,11 @@ export async function getTransactions({
     }),
     prisma.transaction.count({ where }),
     prisma.transaction.aggregate({
-      where: { ...where, type: "INCOME" },
+      where: { ...whereWithoutSearch, type: "INCOME" },
       _sum: { amount: true },
     }),
     prisma.transaction.aggregate({
-      where: { ...where, type: "EXPENSE" },
+      where: { ...whereWithoutSearch, type: "EXPENSE" },
       _sum: { amount: true },
     }),
   ]);
