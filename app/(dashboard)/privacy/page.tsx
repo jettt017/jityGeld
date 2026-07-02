@@ -17,9 +17,6 @@ export default function PrivacyPage() {
         <p className="text-sm text-muted-foreground mt-1">
           Last updated: June 2026
         </p>
-        <div className="mt-5">
-          <HelpCenterNav current="/privacy" />
-        </div>
       </div>
 
       <Card className="p-6 md:p-8 rounded-2xl border-border/50 shadow-sm bg-card space-y-8">
@@ -100,6 +97,8 @@ export default function PrivacyPage() {
           </p>
         </section>
       </Card>
+      
+      <HelpCenterNav current="/privacy" />
     </div>
   );
 }
