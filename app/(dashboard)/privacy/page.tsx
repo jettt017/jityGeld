@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Card } from "@/components/ui/card";
 import { Shield } from "lucide-react";
+import { HelpCenterNav } from "@/components/help-center-nav";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <div className="space-y-6 max-w-4xl mx-auto animate-in fade-in duration-500">
+      <HelpCenterNav current="/privacy" />
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
           Privacy Policy

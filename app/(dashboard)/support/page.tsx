@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Card } from "@/components/ui/card";
 import { HelpCircle, ChevronDown, Mail, Clock } from "lucide-react";
+import { HelpCenterNav } from "@/components/help-center-nav";
 
 export const metadata: Metadata = {
   title: "Support Center",
@@ -37,6 +38,7 @@ const faqs = [
 export default function SupportPage() {
   return (
     <div className="space-y-6 max-w-4xl mx-auto animate-in fade-in duration-500">
+      <HelpCenterNav current="/support" />
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
           Support Center

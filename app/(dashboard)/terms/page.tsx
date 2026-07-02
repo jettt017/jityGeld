@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Card } from "@/components/ui/card";
 import { Scale } from "lucide-react";
+import { HelpCenterNav } from "@/components/help-center-nav";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <div className="space-y-6 max-w-4xl mx-auto animate-in fade-in duration-500">
+      <HelpCenterNav current="/terms" />
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
           Terms of Service
