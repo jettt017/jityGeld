@@ -32,8 +32,8 @@ export function HelpCenterNav({ current }: HelpCenterNavProps) {
 
   return (
     <>
-      <div className="flex justify-center mb-6">
-        <div className="inline-flex items-center gap-1 rounded-2xl border border-[color:var(--border-premium)] bg-card px-2 py-1.5 shadow-[var(--shadow-premium)]">
+      <div className="flex justify-start mb-10">
+        <div className="inline-flex items-center gap-1 rounded-2xl border border-[color:var(--border-premium)] bg-card px-2 py-1.5 shadow-sm max-w-[460px]">
           {/* Previous Arrow */}
           <button
             type="button"
