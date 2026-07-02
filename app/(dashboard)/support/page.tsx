@@ -45,9 +45,6 @@ export default function SupportPage() {
         <p className="text-sm text-muted-foreground mt-1">
           Find answers to common questions or reach out to our team.
         </p>
-        <div className="mt-5">
-          <HelpCenterNav current="/support" />
-        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -110,6 +107,8 @@ export default function SupportPage() {
           </Card>
         </div>
       </div>
+
+      <HelpCenterNav current="/support" />
     </div>
   );
 }
