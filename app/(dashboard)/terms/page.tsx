@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <div className="space-y-6 max-w-4xl mx-auto animate-in fade-in duration-500">
-      <HelpCenterNav current="/terms" />
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
           Terms of Service
@@ -18,6 +17,9 @@ export default function TermsPage() {
         <p className="text-sm text-muted-foreground mt-1">
           Last updated: June 2026
         </p>
+        <div className="mt-5">
+          <HelpCenterNav current="/terms" />
+        </div>
       </div>
 
       <Card className="p-6 md:p-8 rounded-2xl border-border/50 shadow-sm bg-card space-y-8">
