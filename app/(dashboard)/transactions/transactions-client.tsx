@@ -1,6 +1,7 @@
 "use client";
 
 import { GlobalLoading } from "@/components/global-loading";
+import { TransactionsTableSkeleton } from "@/components/skeletons";
 
 import { useState, useEffect, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -31,6 +32,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 import {
   Table,
   TableBody,
@@ -102,10 +104,29 @@ export function TransactionsClient({
   );
 
   const [searchQuery, setSearchQuery] = useState(filters.search || "");
+  const [isSearchPending, setIsSearchPending] = useState(false);
+  const [isSearchTransitionPending, startSearchTransition] = useTransition();
+  const showTableSkeleton = isSearchPending || isSearchTransitionPending;
 
+  // Sync if URL search changes externally (e.g. going back)
   useEffect(() => {
     setSearchQuery(filters.search || "");
   }, [filters.search]);
+
+  // Debounce search query changes
+  useEffect(() => {
+    if (searchQuery !== (filters.search || "")) {
+      setIsSearchPending(true);
+      const handler = setTimeout(() => {
+        startSearchTransition(() => {
+          updateSearchParams({ search: searchQuery || undefined });
+        });
+      }, 400);
+      return () => clearTimeout(handler);
+    } else {
+      setIsSearchPending(false);
+    }
+  }, [searchQuery, filters.search]);
 
   useEffect(() => {
     if (searchParams.get("add") === "true") {
@@ -130,12 +151,12 @@ export function TransactionsClient({
     router.push(`/transactions?${params.toString()}`);
   }
 
-  const [isPending, startTransition] = useTransition();
+  const [isPaginationPending, startPaginationTransition] = useTransition();
 
   function goToPage(page: number) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", String(page));
-    startTransition(() => {
+    startPaginationTransition(() => {
       router.push(`/transactions?${params.toString()}`, { scroll: false });
     });
   }
@@ -256,13 +277,7 @@ export function TransactionsClient({
               placeholder="Search transactions..."
               value={searchQuery}
               className="pl-9 rounded-xl bg-slate-50 dark:bg-zinc-900/50 border border-border/40 focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground transition-all"
-              onChange={(e) => {
-                const val = e.target.value;
-                setSearchQuery(val);
-                if (val.length === 0 || val.length >= 2) {
-                  updateSearchParams({ search: val || undefined });
-                }
-              }}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           <Button
@@ -275,11 +290,17 @@ export function TransactionsClient({
           </Button>
         </div>
         <div className="flex items-center gap-2">
-          <ExportButton categories={categories} />
+          <div className={showTableSkeleton || isPaginationPending ? "opacity-50 pointer-events-none" : ""}>
+            <ExportButton categories={categories} />
+          </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger
             render={
-              <Button onClick={openCreateDialog} className="rounded-xl px-5 h-12">
+              <Button 
+                onClick={openCreateDialog} 
+                className={cn("rounded-xl px-5 h-12", (showTableSkeleton || isPaginationPending) && "opacity-50 pointer-events-none")}
+                disabled={showTableSkeleton || isPaginationPending}
+              >
                 <Plus className="mr-1.5 h-4 w-4" />
                 Add Transaction
               </Button>
@@ -468,9 +489,14 @@ export function TransactionsClient({
       )}
 
       {/* Table */}
-      <Card className="rounded-2xl border-none shadow-sm bg-card p-6 overflow-hidden">
-        <CardContent className="p-0">
-          <Table>
+      {isSearchPending || isSearchTransitionPending ? (
+        <div className="animate-in fade-in duration-200">
+          <TransactionsTableSkeleton />
+        </div>
+      ) : (
+        <Card className="rounded-2xl border-none shadow-sm bg-card p-6 overflow-hidden animate-in fade-in duration-200">
+          <CardContent className="p-0">
+            <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Date</TableHead>
@@ -557,7 +583,7 @@ export function TransactionsClient({
       </Card>
 
       {/* Pagination */}
-      {totalPages > 1 && (
+      {!isSearchPending && !isSearchTransitionPending && totalPages > 1 && (
         <div className="flex items-center justify-between">
           <p className="text-sm text-muted-foreground">
             Showing {(currentPage - 1) * 10 + 1}–
@@ -567,8 +593,8 @@ export function TransactionsClient({
             <Button
               variant="outline"
               size="sm"
-              disabled={currentPage <= 1 || isPending}
-              className={isPending ? "opacity-50 cursor-not-allowed" : ""}
+              disabled={currentPage <= 1 || isPaginationPending}
+              className={isPaginationPending ? "opacity-50 cursor-not-allowed" : ""}
               onClick={() => goToPage(currentPage - 1)}
             >
               <ChevronLeft className="h-4 w-4" />
@@ -579,8 +605,8 @@ export function TransactionsClient({
             <Button
               variant="outline"
               size="sm"
-              disabled={currentPage >= totalPages || isPending}
-              className={isPending ? "opacity-50 cursor-not-allowed" : ""}
+              disabled={currentPage >= totalPages || isPaginationPending}
+              className={isPaginationPending ? "opacity-50 cursor-not-allowed" : ""}
               onClick={() => goToPage(currentPage + 1)}
             >
               <ChevronRight className="h-4 w-4" />
@@ -589,7 +615,7 @@ export function TransactionsClient({
         </div>
       )}
 
-      {isPending && (
+      {isPaginationPending && (
         <div className="fixed inset-0 z-[100] animate-in fade-in duration-200">
           <GlobalLoading />
         </div>
