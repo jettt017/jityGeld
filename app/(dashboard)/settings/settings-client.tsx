@@ -58,6 +58,15 @@ export function SettingsClient({ user }: SettingsClientProps) {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash === "#profile-settings") {
+      setTimeout(() => {
+        nameInputRef.current?.focus();
+      }, 100);
+    }
+  }, []);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -167,7 +176,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
   return (
     <div className="grid gap-6 md:grid-cols-2 animate-fade-in">
       {/* Profile & Preferences Settings Card */}
-      <Card className="rounded-2xl border-none shadow-sm bg-card p-6 flex flex-col justify-between">
+      <Card id="profile-settings" className="rounded-2xl border-none shadow-sm bg-card p-6 flex flex-col justify-between">
         <div>
           <CardHeader className="px-0 pt-0 pb-6">
             <CardTitle className="text-base font-extrabold text-foreground">Profile Settings</CardTitle>
@@ -227,6 +236,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
                   <User className="h-3.5 w-3.5" /> Full Name
                 </label>
                 <Input
+                  ref={nameInputRef}
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
