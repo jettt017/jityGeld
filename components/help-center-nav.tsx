@@ -32,8 +32,8 @@ export function HelpCenterNav({ current }: HelpCenterNavProps) {
 
   return (
     <>
-      <div className="flex justify-center mt-12 mb-8">
-        <div className="inline-flex items-center gap-6 rounded-2xl border border-[color:var(--border-premium)] bg-card px-4 py-3 shadow-sm">
+      <div className="flex justify-center mt-10 mb-8 max-w-full overflow-x-auto hide-scrollbar pb-4 -mb-4">
+        <div className="inline-flex items-center gap-1 rounded-2xl border border-[color:var(--border-premium)] bg-card px-2 py-1.5 shadow-[var(--shadow-premium)] shrink-0">
           {/* Previous Arrow */}
           <button
             type="button"
@@ -41,23 +41,34 @@ export function HelpCenterNav({ current }: HelpCenterNavProps) {
             disabled={!prevPage}
             onClick={() => prevPage && navigate(prevPage.href)}
             className={cn(
-              "flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200",
+              "flex h-8 w-8 items-center justify-center rounded-xl transition-all duration-200 shrink-0",
               prevPage
-                ? "bg-muted/50 hover:bg-muted text-foreground hover:-translate-x-0.5 active:scale-90"
-                : "bg-muted/20 text-muted-foreground/40 cursor-not-allowed opacity-40"
+                ? "hover:bg-muted text-foreground hover:-translate-x-0.5 active:scale-90"
+                : "text-muted-foreground/40 cursor-not-allowed opacity-40"
             )}
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
 
           {/* Page Indicator */}
-          <div className="flex flex-col items-center justify-center min-w-[140px]">
-            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-              {currentIndex + 1} / {pages.length}
-            </span>
-            <span className="text-sm font-semibold text-primary mt-1">
-              {pages[currentIndex].label}
-            </span>
+          <div className="flex items-center gap-2.5 px-2">
+            {pages.map((page, i) => (
+              <button
+                key={page.href}
+                type="button"
+                onClick={() => page.href !== current && navigate(page.href)}
+                aria-label={`Go to ${page.label}`}
+                className={cn(
+                  "flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs transition-all duration-200 shrink-0",
+                  page.href === current
+                    ? "bg-primary/10 text-primary font-semibold cursor-default"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer"
+                )}
+              >
+                <span className="text-[10px] font-bold text-current/50">{i + 1}</span>
+                <span className="whitespace-nowrap">{page.label}</span>
+              </button>
+            ))}
           </div>
 
           {/* Next Arrow */}
@@ -67,10 +78,10 @@ export function HelpCenterNav({ current }: HelpCenterNavProps) {
             disabled={!nextPage}
             onClick={() => nextPage && navigate(nextPage.href)}
             className={cn(
-              "flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200",
+              "flex h-8 w-8 items-center justify-center rounded-xl transition-all duration-200 shrink-0",
               nextPage
-                ? "bg-muted/50 hover:bg-muted text-foreground hover:translate-x-0.5 active:scale-90"
-                : "bg-muted/20 text-muted-foreground/40 cursor-not-allowed opacity-40"
+                ? "hover:bg-muted text-foreground hover:translate-x-0.5 active:scale-90"
+                : "text-muted-foreground/40 cursor-not-allowed opacity-40"
             )}
           >
             <ChevronRight className="h-4 w-4" />
