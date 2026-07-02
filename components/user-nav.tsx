@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut, User } from "lucide-react";
+import { LogOut, User, LifeBuoy } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { GlobalLoading } from "@/components/global-loading";
@@ -78,6 +78,20 @@ export function UserNav({ email, name, avatarUrl }: UserNavProps) {
             <div className="flex items-center w-full">
               <User className="mr-2 h-3.5 w-3.5 text-muted-foreground group-hover/dropdown-menu-item:text-foreground" />
               My Profile
+            </div>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            className="rounded-lg px-2 py-1.5 cursor-pointer text-xs font-semibold"
+            onClick={() => {
+              startTransition(() => {
+                router.push("/privacy");
+              });
+            }}
+          >
+            <div className="flex items-center w-full">
+              <LifeBuoy className="mr-2 h-3.5 w-3.5 text-muted-foreground group-hover/dropdown-menu-item:text-foreground" />
+              Help Center
             </div>
           </DropdownMenuItem>
 
